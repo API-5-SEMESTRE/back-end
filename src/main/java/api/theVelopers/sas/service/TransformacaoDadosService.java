@@ -1,10 +1,12 @@
 package api.theVelopers.sas.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Empresa;
 
-@Service
 public interface TransformacaoDadosService extends CRUDService<Empresa, Long>{
-
+	
+	List<String[]> carregarTransformarDados(MultipartFile arquivo);
 }

@@ -3,8 +3,8 @@ package api.theVelopers.sas.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.repository.EmpresaRepository;
@@ -21,10 +21,20 @@ public class EmpresaServiceImpl extends CRUDServiceImpl<Empresa, Long> implement
 	}
 	
 	@Override
-	public Map<String, List<String> > carregarDadosEmpresa(String nomeArquivo) {
+	public Map<String, List<String> > carregarDadosEmpresa(MultipartFile arquivo) {
 		
-		Map<String, List<String> > map = LeitorCSVUtils.carregarDados(nomeArquivo);
+		Map<String, List<String> > map = LeitorCSVUtils.carregarDados(arquivo);
 		return map; 
 	}
-
+	
+	public List<Empresa> transformarDados(Map<String, List<String>> map) {
+		//TODO terminar
+		return null;
+	}
+	
+	private Empresa construirEmpresa(String campoCNPJ, String campoCidade, 
+											String campoCNAE, String origem) {
+		//TODO terminar
+		return null;
+	}
 }

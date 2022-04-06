@@ -1,13 +1,11 @@
 package api.theVelopers.sas.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
@@ -15,12 +13,13 @@ import com.univocity.parsers.csv.CsvParserSettings;
 
 public abstract class LeitorCSVUtils {
 
-	public static Map<String, List<String> > carregarDados(String nomeArquivo) {
+	public static List<String[]>  carregarDados(MultipartFile arquivo) {
 
-		StringBuilder nomeCaminho = new StringBuilder();
-		nomeCaminho.append("./uploads/");
-		nomeCaminho.append(nomeArquivo);
-		nomeCaminho.append(".csv");
+		/*
+		 * StringBuilder nomeCaminho = new StringBuilder();
+		 * nomeCaminho.append("./uploads/"); nomeCaminho.append(nomeArquivo);
+		 * nomeCaminho.append(".csv");
+		 */
 
 		CsvParserSettings parserConfig = new CsvParserSettings();
 
@@ -36,33 +35,42 @@ public abstract class LeitorCSVUtils {
 
 		CsvParser parser = new CsvParser(parserConfig);
 
-		File arquivo = new File(nomeCaminho.toString());
+		//File arquivo = new File(nomeCaminho.toString());
 
-		InputStream streamArq;
+		/*
+		 * InputStream streamArq; try { streamArq = new
+		 * FileInputStream(arquivo.getInputStream()); } catch (FileNotFoundException e)
+		 * { e.printStackTrace(); throw new RuntimeException(e); }
+		 */
+
 		try {
-			streamArq = new FileInputStream(arquivo);
-		} catch (FileNotFoundException e) {
+			parser.parse(arquivo.getInputStream());
+		} catch (IOException e) {
 			e.printStackTrace();
-			throw new RuntimeException(e);
+			 throw new RuntimeException(e);
+		} finally {
+			try {
+				arquivo.getInputStream().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				 throw new RuntimeException(e);
+			}
 		}
-
-		parser.parse(streamArq);
-
+		
+		
 		String[] headers = processadorLinha.getHeaders();
 		List<String[]> linhas = processadorLinha.getRows();
 		
 		Map<String, List<String> > map = new HashMap<>();
 		
 		
-		for(int i=0;i<headers.length;i++) {
-			String coluna = headers[i];
-			map.put(coluna, new ArrayList<String>());
-			for(int j=0;j<linhas.get(i).length;j++) {
-				map.get(coluna).add(linhas.get(i)[j]);
-			}
-		}
+		/*
+		 * for(int i=0;i<headers.length;i++) { String coluna = headers[i];
+		 * map.put(coluna, new ArrayList<String>()); for(int j=0;j<linhas.size();j++) {
+		 * map.get(coluna).add(linhas.get(j)[i]); } }
+		 */
 		
-		return map;
+		return linhas;
 	}
 
 }

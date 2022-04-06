@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +14,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import api.theVelopers.sas.service.EmpresaService;
+import api.theVelopers.sas.entity.Cidade;
+import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
-class EmpresaServiceImplTest {
+class TransformarDadosServiceImplTest {
 
 	@Autowired
-	private EmpresaService service;
+	private TransformarDadosService service;
 
 	@Test
 	void carregarDadosEmpresaDeveFuncionar() {
 
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
-		nomeCaminho.append("base_empresas");
+		nomeCaminho.append("base_cidade");
 		nomeCaminho.append(".csv");
 
 		Path caminho = Paths.get(nomeCaminho.toString());
@@ -41,13 +41,11 @@ class EmpresaServiceImplTest {
 			e.printStackTrace();
 		}
 
-		MultipartFile arquivo = new MockMultipartFile("base_empresas.csv", conteudo);
+		MultipartFile arquivo = new MockMultipartFile("base_cidade.csv", conteudo);
 
-		Map<String, List<String>> map = service.carregarDadosEmpresa(arquivo);
+		Set<Cidade> cidades= service.carregarTransformarDados(arquivo);
 
-		System.out.println(map.toString());
-
-		assertTrue(!map.isEmpty());
+		assertTrue(!cidades.isEmpty());
 	}
 
 }

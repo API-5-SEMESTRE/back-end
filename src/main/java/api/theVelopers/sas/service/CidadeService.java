@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import api.theVelopers.sas.entity.Empresa;
+import api.theVelopers.sas.entity.Cidade;
 
-public interface EmpresaService extends CRUDService<Empresa, Long>{
-
+public interface CidadeService extends CRUDService<Cidade, Long>{
+	
 	Map<String, List<String>> carregarDadosEmpresa(MultipartFile arquivo);
+
 }

@@ -22,10 +22,20 @@ public class CRUDServiceImpl<T, ID> implements CRUDService<T, ID>{
 	}
 	
 	public <S extends T> S salvar(S entidade) {
+		return repo.save(entidade);
+	}
+	
+	@Override
+	public <S extends T> S salvarFlush(S entidade) {
 		return repo.saveAndFlush(entidade);
 	}
 	
 	public <S extends T> List<S> salvarTodos(Iterable<S> entidades) {
+		return repo.saveAll(entidades);
+	}
+	
+	@Override
+	public <S extends T> List<S> salvarTodosFlush(Iterable<S> entidades) {
 		return repo.saveAllAndFlush(entidades);
 	}
 	
