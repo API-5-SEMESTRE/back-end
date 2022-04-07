@@ -30,7 +30,7 @@ public class Empresa {
 	@Id
 	@CNPJ
 	@Column(name=ID)
-	private String cnpj;
+	private Long cnpj;
 	
 	@ManyToOne
 	@JoinColumn(
@@ -45,7 +45,6 @@ public class Empresa {
 	private Cnae cnae;
 	
 	@Column(name=ORIGEM)
-	@Enumerated(EnumType.ORDINAL)
 	private TipoEmpresa origem;
 	
 	@Column(name=DATA_CADASTRO_VENDEDOR)
@@ -53,11 +52,11 @@ public class Empresa {
 	
 	public Empresa() {}
 
-	public String getCnpj() {
+	public Long getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(String cnpj) {
+	public void setCnpj(Long cnpj) {
 		this.cnpj = cnpj;
 	}
 

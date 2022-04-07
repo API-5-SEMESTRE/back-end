@@ -35,7 +35,6 @@ public class Usuario {
 	private String email;
 	
 	@Column(name=TIPO_ACESSO)
-	@Enumerated(EnumType.ORDINAL)
 	private TipoUsuario tipoAcesso;
 	
 	public Usuario() {}

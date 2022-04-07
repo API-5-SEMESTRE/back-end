@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +18,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
+import api.theVelopers.sas.entity.Cnae;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
@@ -24,7 +28,7 @@ class TransformarDadosServiceImplTest {
 	private TransformarDadosService service;
 
 	@Test
-	void carregarDadosEmpresaDeveFuncionar() {
+	void carregarDadosCidadeDeveFuncionar() {
 
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
@@ -43,9 +47,37 @@ class TransformarDadosServiceImplTest {
 
 		MultipartFile arquivo = new MockMultipartFile("base_cidade.csv", conteudo);
 
-		Set<Cidade> cidades= service.carregarTransformarDados(arquivo);
+		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
+		List<Cidade> cidadesList = new ArrayList<>(cidades);
 
-		assertTrue(!cidades.isEmpty());
+		assertTrue(cidadesList.get(cidades.size()-1).getDescricao().equals("FLECHEIRAS"));
+	}
+	
+	@Test
+	void carregarDadosCnaeDeveFuncionar() {
+
+		StringBuilder nomeCaminho = new StringBuilder();
+		nomeCaminho.append("./uploads/");
+		nomeCaminho.append("base_cnae");
+		nomeCaminho.append(".csv");
+
+		Path caminho = Paths.get(nomeCaminho.toString());
+
+		byte[] conteudo = null;
+
+		try {
+			conteudo = Files.readAllBytes(caminho);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		MultipartFile arquivo = new MockMultipartFile("base_cnae.csv", conteudo);
+
+		Set<Cnae> cnaes= service.transformarDadosCnae(arquivo);
+		List<Cnae> cnaesList = new ArrayList<>(cnaes);
+		
+		cnaesList.stream().forEach(c -> System.out.println(c.getDescricao()));
+		assertTrue(StringUtils.equals(cnaesList.get(cnaes.size()-1).getDescricao(), "Outros"));
 	}
 
 }

@@ -10,13 +10,11 @@ import org.springframework.data.convert.WritingConverter;
 
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 
-@Converter
-@ReadingConverter
-@WritingConverter
-public class TipoEmpresaConverter implements AttributeConverter<TipoEmpresa, Integer>{
+@Converter(autoApply = true)
+public class TipoEmpresaConverter implements AttributeConverter<TipoEmpresa, String>{
 
 	@Override
-	public Integer convertToDatabaseColumn(TipoEmpresa attribute) {
+	public String convertToDatabaseColumn(TipoEmpresa attribute) {
 
 		if(attribute == null) {
 			return null;
@@ -24,13 +22,13 @@ public class TipoEmpresaConverter implements AttributeConverter<TipoEmpresa, Int
 		
 		switch(attribute) {
 		case SPC:
-			return 1;
+			return "SPC";
 		
 		case CONCORRENTE:
-			return 2;
+			return "CONCORRENTE";
 		
 		case LIVRE:
-			return 3;
+			return "LIVRE";
 		
 		default:
 			throw new IllegalArgumentException();
@@ -38,19 +36,19 @@ public class TipoEmpresaConverter implements AttributeConverter<TipoEmpresa, Int
 	}
 
 	@Override
-	public TipoEmpresa convertToEntityAttribute(Integer dbData) {
+	public TipoEmpresa convertToEntityAttribute(String dbData) {
 		if(dbData == null) {
 			return null;
 		}
 		
 		switch(dbData) {
-		case 1:
+		case "SPC":
 			return SPC;
 		
-		case 2:
+		case "CONCORRENTE":
 			return CONCORRENTE;
 		
-		case 3:
+		case "LIVRE":
 			return LIVRE;
 		
 		default:

@@ -1,10 +1,12 @@
 package api.theVelopers.sas.utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.univocity.parsers.common.processor.RowListProcessor;
@@ -32,6 +34,8 @@ public abstract class LeitorCSVUtils {
 		parserConfig.setHeaderExtractionEnabled(true);
 		
 		parserConfig.setAutoClosingEnabled(true);
+		
+		parserConfig.detectFormatAutomatically();
 
 		CsvParser parser = new CsvParser(parserConfig);
 
@@ -42,9 +46,12 @@ public abstract class LeitorCSVUtils {
 		 * FileInputStream(arquivo.getInputStream()); } catch (FileNotFoundException e)
 		 * { e.printStackTrace(); throw new RuntimeException(e); }
 		 */
+		
+		
+		
 
 		try {
-			parser.parse(arquivo.getInputStream());
+			parser.parse(arquivo.getInputStream(), "UTF-8");
 		} catch (IOException e) {
 			e.printStackTrace();
 			 throw new RuntimeException(e);
@@ -58,19 +65,20 @@ public abstract class LeitorCSVUtils {
 		}
 		
 		
-		String[] headers = processadorLinha.getHeaders();
 		List<String[]> linhas = processadorLinha.getRows();
 		
 		Map<String, List<String> > map = new HashMap<>();
 		
+		List<String[]> linhasFormatadas = new ArrayList<>();
 		
-		/*
-		 * for(int i=0;i<headers.length;i++) { String coluna = headers[i];
-		 * map.put(coluna, new ArrayList<String>()); for(int j=0;j<linhas.size();j++) {
-		 * map.get(coluna).add(linhas.get(j)[i]); } }
-		 */
+		for(String[] l: linhas) {
+			String temp = StringUtils.join(l);
+			temp = temp.replaceAll("\"", "");
+			String[] resultado = temp.split(",");
+			linhasFormatadas.add(resultado);
+		}
 		
-		return linhas;
+		return linhasFormatadas;
 	}
 
 }

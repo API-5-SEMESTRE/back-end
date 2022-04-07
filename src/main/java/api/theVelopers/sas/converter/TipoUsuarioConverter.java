@@ -10,9 +10,7 @@ import api.theVelopers.sas.enumeration.TipoUsuario;
 
 import static api.theVelopers.sas.enumeration.TipoUsuario.*;
 
-@Converter
-@ReadingConverter
-@WritingConverter
+@Converter(autoApply = true)
 public class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, Integer>{
 
 	@Override
