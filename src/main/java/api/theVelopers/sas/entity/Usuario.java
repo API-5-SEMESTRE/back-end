@@ -7,11 +7,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import api.theVelopers.sas.converter.TipoUsuarioConverter;
 import api.theVelopers.sas.enumeration.TipoUsuario;
 
 @Entity
+@Table(name="usuario")
 public class Usuario {
 	
 	public static final String ID = "usu_id";

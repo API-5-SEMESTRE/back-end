@@ -1,13 +1,13 @@
 package api.theVelopers.sas.entity;
 
-import java.util.Set;
+import java.util.List;
 
 
 public class CarteiraVendedor {
 	
 	private Usuario vendedor;
 	
-	private Set<Empresa> clientes;
+	private List<Empresa> clientes;
 	
 	public CarteiraVendedor() {}
 
@@ -19,11 +19,11 @@ public class CarteiraVendedor {
 		this.vendedor = vendedor;
 	}
 
-	public Set<Empresa> getClientes() {
+	public List<Empresa> getClientes() {
 		return clientes;
 	}
 
-	public void setClientes(Set<Empresa> clientes) {
+	public void setClientes(List<Empresa> clientes) {
 		this.clientes = clientes;
 	}
 }	

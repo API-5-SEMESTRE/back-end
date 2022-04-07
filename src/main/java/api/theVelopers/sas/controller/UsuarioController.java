@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.service.CadastroService;
+import api.theVelopers.sas.service.CarteiraVendedorService;
 
 @RestController
 @RequestMapping(path = {"/usuario"})
@@ -26,9 +28,11 @@ public class UsuarioController {
 	
 	@Autowired
 	private CadastroService cadastroService;
+	@Autowired
+	private CarteiraVendedorService carteiraService;
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> cadastrarUsuadio(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
 		
 		Usuario novoUsuario = cadastroService.salvarFlush(usuario);
 		
@@ -43,11 +47,17 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletarUsuario(@PathVariable("id") Long id) {
 
         cadastroService.deletar(cadastroService.procurarPorId(id).get());
 
         return ResponseEntity.ok(USUARIO_DELETADO);
     }
 	
+	@GetMapping("/carteira-vendedor/{id}")
+	public ResponseEntity<CarteiraVendedor> pesquisarCarteira(@PathVariable("id") Long idUsuario) {
+		CarteiraVendedor carteira = carteiraService.criarCarteiraVendedor(idUsuario);
+		
+		return new ResponseEntity<>(carteira, OK);
+	}
 }

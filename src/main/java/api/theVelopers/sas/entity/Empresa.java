@@ -4,11 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -24,7 +23,6 @@ public class Empresa {
 	public static final String CIDADE="cidade_cid_id";
 	public static final String CNAE="cnae_cnae_id";
 	public static final String ORIGEM="emp_origem";
-	public static final String VENDEDOR="vendedor_usu_id";
 	public static final String DATA_CADASTRO_VENDEDOR="emp_data_cadastro_vendedor";
 	
 	@Id
@@ -50,6 +48,18 @@ public class Empresa {
 	@Column(name=DATA_CADASTRO_VENDEDOR)
 	private LocalDateTime dataDeCadastroVendedor;
 	
+	@ManyToOne
+	@JoinColumn(name=Usuario.ID)
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Empresa() {}
 
 	public Long getCnpj() {

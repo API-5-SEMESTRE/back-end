@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import api.theVelopers.sas.service.CRUDService;
 
+@Service
 public class CRUDServiceImpl<T, ID> implements CRUDService<T, ID>{
 	
-	@Autowired
 	private JpaRepository<T, ID> repo;
 	
 	public List<T> procurarTodos() {
