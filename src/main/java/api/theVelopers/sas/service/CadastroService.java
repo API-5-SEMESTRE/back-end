@@ -5,7 +5,7 @@ import java.util.List;
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.entity.Usuario;
 
-public interface CadastroService extends CRUDService<Usuario, Long>{
+public interface CadastroService extends CrudService<Usuario, Long>{
 
 	UsuarioDTO transformarEmDTO(Usuario usuario);
 

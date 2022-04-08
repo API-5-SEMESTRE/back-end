@@ -1,6 +1,6 @@
 package api.theVelopers.sas.controller;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
 import java.util.Set;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Empresa;
-import api.theVelopers.sas.service.EmpresaService;
+import api.theVelopers.sas.service.CrudService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
@@ -23,21 +23,21 @@ import api.theVelopers.sas.service.TransformarDadosService;
 public class EmpresaController {
 	
 	@Autowired
-	TransformarDadosService transformarDadosService;
+	private TransformarDadosService transformarDadosService;
 	@Autowired
-	EmpresaService empresaService;
+	private CrudService<Empresa, Long> crud;
 	
-	@PostMapping("/upload-csv")
-	public ResponseEntity<Set<Empresa>> uploadCsv(
+	@PostMapping("/leitor-csv")
+	public ResponseEntity<List<Empresa>> uploadCsv(
 			@RequestParam("arquivo") MultipartFile arquivo) {
-		final Set<Empresa> empresa = transformarDadosService.transformarDadosEmpresa(arquivo);
-
-        return new ResponseEntity<>(empresa, OK);
+		final Set<Empresa> empresas = transformarDadosService.transformarDadosEmpresa(arquivo);
+		final List<Empresa> empresasSalvas = crud.salvarTodosFlush(empresas);
+        return new ResponseEntity<>(empresasSalvas, OK);
 	}
 	
 	@GetMapping("/todos-usuarios")
 	public ResponseEntity<List<Empresa>> pesquisarTodasEmpresas() {
-		final List<Empresa> empresas = empresaService.procurarTodos();
+		final List<Empresa> empresas = crud.procurarTodos();
 		
 		return new ResponseEntity<>(empresas, OK);
 	}

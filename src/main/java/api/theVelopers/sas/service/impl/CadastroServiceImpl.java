@@ -10,7 +10,7 @@ import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.service.CadastroService;
 
 @Service
-public class CadastroServiceImpl extends CRUDServiceImpl<Usuario, Long> implements CadastroService{
+public class CadastroServiceImpl extends CrudServiceImpl<Usuario, Long> implements CadastroService{
 	
 	@Override
 	public UsuarioDTO transformarEmDTO(Usuario usuario) {

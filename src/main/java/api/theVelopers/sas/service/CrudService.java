@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface CRUDService<T, ID> {
+public interface CrudService<T, ID> {
 	
 	List<T> procurarTodos();
 	Optional<T> procurarPorId(ID id);

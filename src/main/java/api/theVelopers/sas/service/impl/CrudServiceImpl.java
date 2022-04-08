@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import api.theVelopers.sas.service.CRUDService;
+import api.theVelopers.sas.service.CrudService;
 
 @Service
-public class CRUDServiceImpl<T, ID> implements CRUDService<T, ID>{
+public class CrudServiceImpl<T, ID> implements CrudService<T, ID>{
 	
 	private JpaRepository<T, ID> repo;
 	

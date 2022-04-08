@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
 
-public interface CidadeService extends CRUDService<Cidade, Long>{
+public interface CidadeService extends CrudService<Cidade, Long>{
 	
 	Map<String, List<String>> carregarDadosEmpresa(MultipartFile arquivo);
 

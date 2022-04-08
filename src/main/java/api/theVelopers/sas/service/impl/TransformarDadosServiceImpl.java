@@ -21,10 +21,12 @@ import api.theVelopers.sas.entity.Cnae;
 import api.theVelopers.sas.entity.Consumo;
 import api.theVelopers.sas.entity.ConsumoId;
 import api.theVelopers.sas.entity.Empresa;
+import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 import api.theVelopers.sas.repository.CidadeRepository;
 import api.theVelopers.sas.repository.CnaeRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
+import api.theVelopers.sas.service.CrudService;
 import api.theVelopers.sas.service.TransformarDadosService;
 import api.theVelopers.sas.utils.LeitorCSVUtils;
 

@@ -11,7 +11,7 @@ import api.theVelopers.sas.repository.EmpresaRepository;
 import api.theVelopers.sas.service.EmpresaService;
 
 @Service
-public class EmpresaServiceImpl extends CRUDServiceImpl<Empresa, Long> implements EmpresaService{
+public class EmpresaServiceImpl extends CrudServiceImpl<Empresa, Long> implements EmpresaService{
 	
 	@Autowired
 	EmpresaRepository repo;

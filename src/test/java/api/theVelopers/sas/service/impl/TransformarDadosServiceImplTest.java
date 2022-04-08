@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
@@ -22,6 +23,7 @@ import api.theVelopers.sas.entity.Cnae;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
+@Rollback
 class TransformarDadosServiceImplTest {
 
 	@Autowired

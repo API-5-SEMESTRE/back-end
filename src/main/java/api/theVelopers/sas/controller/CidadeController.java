@@ -2,6 +2,7 @@ package api.theVelopers.sas.controller;
 
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
+import api.theVelopers.sas.service.CrudService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
@@ -20,14 +22,18 @@ import api.theVelopers.sas.service.TransformarDadosService;
 public class CidadeController {
 	
 	@Autowired
-	TransformarDadosService transformarDadosService;
+	private TransformarDadosService transformarDadosService;
+	@Autowired
+	private CrudService<Cidade, Long> crud;
 	
-	@PostMapping("/upload-csv")
-	public ResponseEntity<Set<Cidade>> uploadCsv(
+	@PostMapping("/leitor-csv")
+	public ResponseEntity<List<Cidade>> uploadCsv(
 			@RequestParam("arquivo") MultipartFile arquivo) {
 		final Set<Cidade> cidades = transformarDadosService.transformarDadosCidade(arquivo);
-
-        return new ResponseEntity<>(cidades, OK);
+		
+		final List<Cidade> cidadesSalvas = crud.salvarTodosFlush(cidades);
+		
+        return new ResponseEntity<>(cidadesSalvas, OK);
 	}
 
 }

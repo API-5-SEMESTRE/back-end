@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
-import api.theVelopers.sas.service.CRUDService;
+import api.theVelopers.sas.service.CrudService;
 import api.theVelopers.sas.service.CarteiraVendedorService;
 import api.theVelopers.sas.service.EmpresaService;
 
@@ -20,7 +20,7 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	@Autowired
 	EmpresaService empresaService;
 	@Autowired
-	CRUDService<Usuario, Long> crudUsuario;
+	CrudService<Usuario, Long> crudUsuario;
 	
 	@Override
 	public void adicionarVendedorEmpresa(Long idUsuario, Long cnpjEmpresa) {
