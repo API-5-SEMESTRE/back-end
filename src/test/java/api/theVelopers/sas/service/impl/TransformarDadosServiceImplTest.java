@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -14,23 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
 import api.theVelopers.sas.entity.Cnae;
-import api.theVelopers.sas.repository.CidadeRepository;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
-@Rollback
+@Transactional
 class TransformarDadosServiceImplTest {
 
 	@Autowired
 	private TransformarDadosService service;
-	@Autowired
-	private CidadeRepository cidadeRepo;
 
 	@Test
+	@Rollback
 	void carregarDadosCidadeDeveFuncionar() {
 
 		StringBuilder nomeCaminho = new StringBuilder();
@@ -52,11 +50,11 @@ class TransformarDadosServiceImplTest {
 		
 		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
 		
-		cidadeRepo.saveAllAndFlush(cidades);
+		//cidadeRepo.saveAll(cidades);
 		
-		List<Cidade> checar = cidadeRepo.findAll();
+		//List<Cidade> checar = cidadeRepo.findAll();
 		
-		assertTrue(checar.size() == 11155);
+		assertTrue(cidades.size() == 11155);
 	}
 	
 	@Test

@@ -17,12 +17,6 @@ public abstract class LeitorCSVUtils {
 
 	public static List<String[]>  carregarDados(MultipartFile arquivo) {
 
-		/*
-		 * StringBuilder nomeCaminho = new StringBuilder();
-		 * nomeCaminho.append("./uploads/"); nomeCaminho.append(nomeArquivo);
-		 * nomeCaminho.append(".csv");
-		 */
-
 		CsvParserSettings parserConfig = new CsvParserSettings();
 
 		parserConfig.setLineSeparatorDetectionEnabled(true);
@@ -39,35 +33,22 @@ public abstract class LeitorCSVUtils {
 
 		CsvParser parser = new CsvParser(parserConfig);
 
-		//File arquivo = new File(nomeCaminho.toString());
-
-		/*
-		 * InputStream streamArq; try { streamArq = new
-		 * FileInputStream(arquivo.getInputStream()); } catch (FileNotFoundException e)
-		 * { e.printStackTrace(); throw new RuntimeException(e); }
-		 */
-		
-		
-		
-
 		try {
 			parser.parse(arquivo.getInputStream(), "UTF-8");
 		} catch (IOException e) {
 			e.printStackTrace();
-			 throw new RuntimeException(e);
+			 throw new RuntimeException("Erro ao ler arquivo.");
 		} finally {
 			try {
 				arquivo.getInputStream().close();
 			} catch (IOException e) {
 				e.printStackTrace();
-				 throw new RuntimeException(e);
+				 throw new RuntimeException("Erro ao fechar arquivo");
 			}
 		}
 		
 		
 		List<String[]> linhas = processadorLinha.getRows();
-		
-		Map<String, List<String> > map = new HashMap<>();
 		
 		List<String[]> linhasFormatadas = new ArrayList<>();
 		

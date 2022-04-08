@@ -6,18 +6,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoUsuario;
 
 @SpringBootTest
-@Rollback
-class CadastroServiceImplTest {
+@Transactional
+class UsuarioServiceImplTest {
 	
 	@Autowired
 	private UsuarioServiceImpl service;
 	
 	@Test
+	@Rollback
 	void criarUsuarioDeveFuncionar() {
 		Usuario usu = new Usuario();
 		
