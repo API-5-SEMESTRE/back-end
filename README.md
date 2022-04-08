@@ -1,4 +1,4 @@
-<p align="center"> <img src="./assets/imagens-readme/logo.jpeg" alt="Sas" class="center" width=300/> </p>
+<p align="center"> <img src="./images/logo.jpeg" alt="Sas" class="center" width=300/> </p>
 
 O projeto a ser desenvolvido vai ser um sistema para buscar novas receitas através da criação de novas
 segmentações de clientes para a empresa parceira [SPC](https://www.spcbrasil.org.br/).
@@ -42,7 +42,7 @@ Desafio proposto pela SPC - "Temos um novo desafio na área de vendas que é bus
 
 <h2>Entregas 💎</h2>
 
-O planejamento e o progresso durante as Sprints do projeto poderá ser visto em [Entregas](https://github.com/API-5-SEMESTRE/back-end/wiki/Entregas).
+O planejamento e o progresso durante as Sprints do projeto poderá ser visto em [Entregas](https://github.com/API-5-SEMESTRE/front-end/wiki/Entregas).
 
 <h2>Rodando o Sistema 🚀</h2>
 
