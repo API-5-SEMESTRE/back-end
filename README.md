@@ -62,9 +62,9 @@ $ git clone https://github.com/API-5-SEMESTRE/back-end
 
 # Abrir o arquivo "application.properties" no caminho "src/main/resources/"
 
-# Dentro do arquivo "application.properties", aonde estiver escrito "[URL]" apagar e colocar "jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=" + caminho da pasta aonde o Wallet foi descompactado
+# Dentro do arquivo "application.properties", aonde estiver escrito "[URL]" apagar e colocar "jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key"
 
-# Exemplo de como deve ficar: jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=/Users/nome/Downloads/wallet
+# Exemplo de como deve ficar: spring.datasource.url=jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key
 
 # Onde estiver "[USER]" e "[PASSORD]" deve colocar o usuário e a senha
 
