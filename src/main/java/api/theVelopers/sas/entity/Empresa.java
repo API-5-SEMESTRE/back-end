@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import api.theVelopers.sas.dto.EmpresaDTO;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 
 @Entity
@@ -98,5 +98,12 @@ public class Empresa {
 
 	public void setDataDeCadastroVendedor(LocalDateTime dataDeCadastroVendedor) {
 		this.dataDeCadastroVendedor = dataDeCadastroVendedor;
+	}
+	
+	public static EmpresaDTO paraDTO(Empresa empresa) {
+		EmpresaDTO dto = new EmpresaDTO();
+		dto.setCnpj(empresa.getCnpj());
+		
+		return dto;
 	}
 }

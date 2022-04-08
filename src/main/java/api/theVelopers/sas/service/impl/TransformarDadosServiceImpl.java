@@ -2,7 +2,6 @@ package api.theVelopers.sas.service.impl;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +19,10 @@ import api.theVelopers.sas.entity.Cnae;
 import api.theVelopers.sas.entity.Consumo;
 import api.theVelopers.sas.entity.ConsumoId;
 import api.theVelopers.sas.entity.Empresa;
-import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 import api.theVelopers.sas.repository.CidadeRepository;
 import api.theVelopers.sas.repository.CnaeRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
-import api.theVelopers.sas.service.CrudService;
 import api.theVelopers.sas.service.TransformarDadosService;
 import api.theVelopers.sas.utils.LeitorCSVUtils;
 
@@ -48,17 +44,6 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 		cidades = construirCidades(linhas);
 
 		return cidades;
-	}
-
-	private List<Long> ordenarDadosDaBaseComId(Map<Long, String[]> idLinha) {
-		Set<Long> ids = new HashSet<>();
-		List<Long> idsOrdenados = new ArrayList<>();
-
-		ids = idLinha.keySet();
-
-		idsOrdenados = ids.stream().sorted().collect(Collectors.toList());
-
-		return idsOrdenados;
 	}
 
 	private Set<Cidade> construirCidades(List<String[]> linhas) {

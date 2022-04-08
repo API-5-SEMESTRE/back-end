@@ -3,15 +3,20 @@ package api.theVelopers.sas.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.repository.UsuarioRepository;
 import api.theVelopers.sas.service.CadastroService;
 
 @Service
-public class CadastroServiceImpl extends CrudServiceImpl<Usuario, Long> implements CadastroService{
+public class CadastroServiceImpl implements CadastroService{
 	
+	@Autowired
+	private UsuarioRepository usuarioRepo;
+
 	@Override
 	public UsuarioDTO transformarEmDTO(Usuario usuario) {
 		UsuarioDTO dto = new UsuarioDTO();

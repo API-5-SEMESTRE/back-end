@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cnae;
-import api.theVelopers.sas.service.CrudService;
+import api.theVelopers.sas.service.CnaeService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
@@ -24,14 +24,14 @@ public class CnaeController {
 	@Autowired
 	private TransformarDadosService transformarDadosService;
 	@Autowired
-	private CrudService<Cnae, Long> crud;
+	private CnaeService cnaeService;
 	
 	@PostMapping("/leitor-csv")
 	public ResponseEntity<List<Cnae>> uploadCsv(
 			@RequestParam("arquivo") MultipartFile arquivo) {
 		final Set<Cnae> cnaes = transformarDadosService.transformarDadosCnae(arquivo);
 		
-		final List<Cnae> cnaesSalvos = crud.salvarTodosFlush(cnaes);
+		final List<Cnae> cnaesSalvos = cnaeService.salvarTodosFlush(cnaes);
 		
         return new ResponseEntity<>(cnaesSalvos, OK);
 	}

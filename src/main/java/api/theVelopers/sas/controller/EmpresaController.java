@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import api.theVelopers.sas.dto.EmpresaDTO;
 import api.theVelopers.sas.entity.Empresa;
-import api.theVelopers.sas.service.CrudService;
+import api.theVelopers.sas.service.EmpresaService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
@@ -25,19 +26,19 @@ public class EmpresaController {
 	@Autowired
 	private TransformarDadosService transformarDadosService;
 	@Autowired
-	private CrudService<Empresa, Long> crud;
+	private EmpresaService empresaService;
 	
 	@PostMapping("/leitor-csv")
 	public ResponseEntity<List<Empresa>> uploadCsv(
 			@RequestParam("arquivo") MultipartFile arquivo) {
 		final Set<Empresa> empresas = transformarDadosService.transformarDadosEmpresa(arquivo);
-		final List<Empresa> empresasSalvas = crud.salvarTodosFlush(empresas);
+		final List<Empresa> empresasSalvas = empresaService.salvarTodosFlush(empresas);
         return new ResponseEntity<>(empresasSalvas, OK);
 	}
 	
-	@GetMapping("/todos-usuarios")
-	public ResponseEntity<List<Empresa>> pesquisarTodasEmpresas() {
-		final List<Empresa> empresas = crud.procurarTodos();
+	@GetMapping("/todas-empresas")
+	public ResponseEntity<List<EmpresaDTO>> pesquisarTodasEmpresas() {
+		final List<EmpresaDTO> empresas = empresaService.procurarTodos();
 		
 		return new ResponseEntity<>(empresas, OK);
 	}

@@ -6,11 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
 import api.theVelopers.sas.entity.Cnae;
+import api.theVelopers.sas.repository.CidadeRepository;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
@@ -28,6 +27,8 @@ class TransformarDadosServiceImplTest {
 
 	@Autowired
 	private TransformarDadosService service;
+	@Autowired
+	private CidadeRepository cidadeRepo;
 
 	@Test
 	void carregarDadosCidadeDeveFuncionar() {
@@ -48,10 +49,14 @@ class TransformarDadosServiceImplTest {
 		}
 
 		MultipartFile arquivo = new MockMultipartFile("base_cidade.csv", conteudo);
-
+		
 		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
-
-		assertTrue(cidades.size() == 11155);
+		
+		cidadeRepo.saveAllAndFlush(cidades);
+		
+		List<Cidade> checar = cidadeRepo.findAll();
+		
+		assertTrue(checar.size() == 11155);
 	}
 	
 	@Test

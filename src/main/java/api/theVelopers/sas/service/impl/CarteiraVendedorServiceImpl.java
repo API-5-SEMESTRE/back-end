@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
-import api.theVelopers.sas.service.CrudService;
+import api.theVelopers.sas.repository.EmpresaRepository;
+import api.theVelopers.sas.repository.UsuarioRepository;
 import api.theVelopers.sas.service.CarteiraVendedorService;
-import api.theVelopers.sas.service.EmpresaService;
 
 @Service
 public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	
 	@Autowired
-	EmpresaService empresaService;
+	private EmpresaRepository empresaRepo;
 	@Autowired
-	CrudService<Usuario, Long> crudUsuario;
+	private UsuarioRepository usuarioRepo;
 	
 	@Override
 	public void adicionarVendedorEmpresa(Long idUsuario, Long cnpjEmpresa) {
-		Usuario usuario = crudUsuario.procurarPorId(idUsuario).get();
-		Empresa empresa = empresaService.procurarPorId(cnpjEmpresa).get();
+		Usuario usuario = usuarioRepo.getById(idUsuario);
+		Empresa empresa = empresaRepo.getById(cnpjEmpresa);
 		
 		empresa.setUsuario(usuario);
 		
@@ -37,17 +37,17 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	
 	@Override
 	public void removerVendedorEmpresa(Long cnpjEmpresa) {
-		Empresa empresa = empresaService.procurarPorId(cnpjEmpresa).get();
+		Empresa empresa = empresaRepo.getById(cnpjEmpresa);
 		
 		empresa.setUsuario(null);
 		
-		empresaService.salvarFlush(empresa);
+		empresaRepo.save(empresa);
 	}
 	
 	@Override
 	public CarteiraVendedor criarCarteiraVendedor(Long idVendedor) {
-		Usuario vendedor = crudUsuario.procurarPorId(idVendedor).get();
-		List<Empresa> empresasQueVendedorAtua = empresaService.findByUsuario(vendedor);
+		Usuario vendedor = usuarioRepo.getById(idVendedor);
+		List<Empresa> empresasQueVendedorAtua = empresaRepo.findByUsuario(vendedor);
 		
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
 		carteiraVendedor.setClientes(empresasQueVendedorAtua);

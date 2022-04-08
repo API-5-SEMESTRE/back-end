@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Consumo;
-import api.theVelopers.sas.entity.ConsumoId;
-import api.theVelopers.sas.service.CrudService;
+import api.theVelopers.sas.service.ConsumoService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
@@ -25,14 +24,14 @@ public class ConsumoController {
 	@Autowired
 	private TransformarDadosService transformarDadosService;
 	@Autowired
-	private CrudService<Consumo, ConsumoId> crud;
+	private ConsumoService consumoService;
 	
 	@PostMapping("/leitor-csv")
 	public ResponseEntity<List<Consumo>> uploadCsv(
 			@RequestParam("arquivo") MultipartFile arquivo) {
 		final Set<Consumo> consumos = transformarDadosService.transformarDadosConsumo(arquivo);
 		
-		final List<Consumo> consumosSalvos = crud.salvarTodosFlush(consumos);
+		final List<Consumo> consumosSalvos = consumoService.salvarTodosFlush(consumos);
 		
         return new ResponseEntity<>(consumosSalvos, OK);
 	}

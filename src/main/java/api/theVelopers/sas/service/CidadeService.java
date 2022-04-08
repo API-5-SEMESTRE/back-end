@@ -1,14 +1,11 @@
 package api.theVelopers.sas.service;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
 
-public interface CidadeService extends CrudService<Cidade, Long>{
+public interface CidadeService{
 	
-	Map<String, List<String>> carregarDadosEmpresa(MultipartFile arquivo);
-
+	List<Cidade> salvarTodos(Iterable<Cidade> cidades);
+	List<Cidade> salvarTodosFlush(Iterable<Cidade> cidades);
 }

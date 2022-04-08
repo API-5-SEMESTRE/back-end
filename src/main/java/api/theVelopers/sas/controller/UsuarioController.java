@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Usuario;
-import api.theVelopers.sas.service.CadastroService;
 import api.theVelopers.sas.service.CarteiraVendedorService;
+import api.theVelopers.sas.service.UsuarioService;
 
 @RestController
 @RequestMapping(path = {"/usuario"})
@@ -29,27 +29,34 @@ public class UsuarioController {
 	public static final String USUARIO_DELETADO = "Usuário deletado com sucesso";
 	
 	@Autowired
-	private CadastroService cadastroService;
+	private UsuarioService usuarioService;
 	@Autowired
 	private CarteiraVendedorService carteiraService;
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<UsuarioDTO> cadastrarUsuario(@RequestBody Usuario usuario) {
-		Usuario novoUsuario = cadastroService.salvarFlush(usuario);
+		UsuarioDTO novoUsuario = usuarioService.salvarComFlush(usuario);
 		
-		return new ResponseEntity<>(Usuario.paraDTO(novoUsuario), CREATED);
+		return new ResponseEntity<>(novoUsuario, CREATED);
 	}
 	
 	@GetMapping("/todos-usuarios")
 	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosUsuarios() {
-		List<Usuario> usuarios = cadastroService.procurarTodos();
+		List<UsuarioDTO> usuarios = usuarioService.buscarTodos();
 		
-		return new ResponseEntity<>(usuarios.stream().map(Usuario::paraDTO).collect(Collectors.toList()), OK);
+		return new ResponseEntity<>(usuarios, OK);
+	}
+	
+	@GetMapping("/todos-usuarios/{email}")
+	public ResponseEntity<UsuarioDTO> pesquisarPorEmail(@PathVariable("email") String email) {
+		UsuarioDTO usuarios = usuarioService.procurarPorEmail(email);
+		
+		return new ResponseEntity<>(usuarios, OK);
 	}
 	
 	@DeleteMapping("/deletar/{id}")
     public ResponseEntity<?> deletarUsuario(@PathVariable("id") Long id) {
-        cadastroService.deletar(cadastroService.procurarPorId(id).get());
+        usuarioService.deletar(id);
 
         return ResponseEntity.ok(USUARIO_DELETADO);
     }
