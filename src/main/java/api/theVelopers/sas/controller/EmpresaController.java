@@ -1,6 +1,6 @@
 package api.theVelopers.sas.controller;
 
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 import java.util.List;
 import java.util.Set;
@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import api.theVelopers.sas.entity.Cidade;
 import api.theVelopers.sas.entity.Empresa;
-import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.service.EmpresaService;
 import api.theVelopers.sas.service.TransformarDadosService;
 

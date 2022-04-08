@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cane")
+@Table(name="cnae")
 public class Cnae {
 	
 	public static final String ID="cnae_id";
@@ -15,7 +15,6 @@ public class Cnae {
 	public static final String DESCRICAO="cnae_desc";
 	
 	@Id
-	@GeneratedValue
 	@Column(name=ID)
 	private Long id;
 	

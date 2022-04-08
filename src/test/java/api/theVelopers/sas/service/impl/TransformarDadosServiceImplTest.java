@@ -48,9 +48,8 @@ class TransformarDadosServiceImplTest {
 		MultipartFile arquivo = new MockMultipartFile("base_cidade.csv", conteudo);
 
 		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
-		List<Cidade> cidadesList = new ArrayList<>(cidades);
 
-		assertTrue(cidadesList.get(cidades.size()-1).getDescricao().equals("FLECHEIRAS"));
+		assertTrue(cidades.size() == 11155);
 	}
 	
 	@Test
@@ -74,10 +73,8 @@ class TransformarDadosServiceImplTest {
 		MultipartFile arquivo = new MockMultipartFile("base_cnae.csv", conteudo);
 
 		Set<Cnae> cnaes= service.transformarDadosCnae(arquivo);
-		List<Cnae> cnaesList = new ArrayList<>(cnaes);
 		
-		cnaesList.stream().forEach(c -> System.out.println(c.getDescricao()));
-		assertTrue(StringUtils.equals(cnaesList.get(cnaes.size()-1).getDescricao(), "Outros"));
+		assertTrue(cnaes.size() == 1362);
 	}
 
 }

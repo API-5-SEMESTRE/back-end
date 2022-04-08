@@ -8,4 +8,6 @@ public interface CarteiraVendedorService {
 
 	CarteiraVendedor criarCarteiraVendedor(Long idVendedor);
 
+	void removerVendedorEmpresa(Long cnpjEmpresa);
+
 }

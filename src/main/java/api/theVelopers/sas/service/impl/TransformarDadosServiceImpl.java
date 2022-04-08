@@ -41,15 +41,9 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	@Override
 	public Set<Cidade> transformarDadosCidade(MultipartFile arquivo) {
 		List<String[]> linhas = LeitorCSVUtils.carregarDados(arquivo);
-		Map<Long, String[]> idLinha = new HashMap<>();
 		Set<Cidade> cidades = new HashSet<>();
-		List<Long> idsOrdenados = new ArrayList<>();
 
-		linhas.stream().forEach(linha -> idLinha.put(Long.valueOf(linha[0]), linha));
-
-		idsOrdenados = ordenarDadosDaBaseComId(idLinha);
-
-		cidades = construirCidades(idsOrdenados, idLinha);
+		cidades = construirCidades(linhas);
 
 		return cidades;
 	}
@@ -65,22 +59,22 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 		return idsOrdenados;
 	}
 
-	private Set<Cidade> construirCidades(List<Long> idsOrdenados, Map<Long, String[]> idLinha) {
-		Set<Cidade> cidades = new LinkedHashSet<>();
+	private Set<Cidade> construirCidades(List<String[]> linhas) {
+		Set<Cidade> cidades = new HashSet<>();
 
-		idsOrdenados.stream().forEach(id -> {
-			String[] linha = idLinha.get(id);
-			Cidade novaCidade = construirCidade(linha[1], linha[2], linha[3]);
+		linhas.stream().forEach(linha -> {
+			Cidade novaCidade = construirCidade(linha[0], linha[1], linha[2], linha[3]);
 			cidades.add(novaCidade);
 		});
 
 		return cidades;
 	}
 
-	private Cidade construirCidade(String desc, String siglaEstado, String ibge) {
+	private Cidade construirCidade(String id, String desc, String siglaEstado, String ibge) {
 
 		Cidade cidade = new Cidade();
-
+		
+		cidade.setId(Long.valueOf(id));
 		cidade.setDescricao(desc);
 		cidade.setSiglaEstado(siglaEstado);
 		cidade.setRegistroIbge(ibge);
@@ -91,35 +85,29 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	@Override
 	public Set<Cnae> transformarDadosCnae(MultipartFile arquivo) {
 		List<String[]> linhas = LeitorCSVUtils.carregarDados(arquivo);
-		Map<Long, String[]> idLinha = new HashMap<>();
 		Set<Cnae> cnaes = new HashSet<>();
-		List<Long> idsOrdenados = new ArrayList<>();
 		
-		linhas.stream().forEach(linha -> idLinha.put(Long.valueOf(linha[0]), linha));
-
-		idsOrdenados = ordenarDadosDaBaseComId(idLinha);
-
-		cnaes = construirCnaes(idsOrdenados, idLinha);
+		cnaes = construirCnaes(linhas);
 
 		return cnaes;
 	}
 
-	private Set<Cnae> construirCnaes(List<Long> idsOrdenados, Map<Long, String[]> idLinha) {
+	private Set<Cnae> construirCnaes(List<String[]> linhas) {
 		Set<Cnae> cnaes = new LinkedHashSet<>();
 
-		idsOrdenados.stream().forEach(id -> {
-			String[] linha = idLinha.get(id);
-			Cnae novoCnae = construirCnae(linha[1], linha[2]);
+		linhas.stream().forEach(linha -> {
+			Cnae novoCnae = construirCnae(linha[0], linha[1], linha[2]);
 			cnaes.add(novoCnae);
 		});
 
 		return cnaes;
 	}
 
-	private Cnae construirCnae(String codigo, String desc) {
+	private Cnae construirCnae(String id, String codigo, String desc) {
 
 		Cnae cnae = new Cnae();
-
+		
+		cnae.setId(Long.valueOf(id));
 		cnae.setCodigo(Long.valueOf(codigo));
 		cnae.setDescricao(desc);
 
@@ -129,26 +117,19 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	@Override
 	public Set<Empresa> transformarDadosEmpresa(MultipartFile arquivo) {
 		List<String[]> linhas = LeitorCSVUtils.carregarDados(arquivo);
-		Map<Long, String[]> idLinha = new HashMap<>();
 		Set<Empresa> empresas = new HashSet<>();
-		List<Long> idsOrdenados = new ArrayList<>();
 
-		linhas.stream().forEach(linha -> idLinha.put(Long.valueOf(linha[0]), linha));
-
-		idsOrdenados = ordenarDadosDaBaseComId(idLinha);
-
-		empresas = construirEmpresas(idsOrdenados, idLinha);
+		empresas = construirEmpresas(linhas);
 
 		return empresas;
 	}
 
-	private Set<Empresa> construirEmpresas(List<Long> idsOrdenados, Map<Long, String[]> idLinha) {
+	private Set<Empresa> construirEmpresas(List<String[]> linhas) {
 		Set<Empresa> empresas = new LinkedHashSet<>();
 		final HashMap<Long, Cnae> cnaesMap = construirMapCnaes();
 		final HashMap<Long, Cidade> cidadesMap = construirMapCidades();
 		
-		for(Long id: idsOrdenados) {
-			String[] linha = idLinha.get(id);
+		for(String[] linha: linhas) {
 			Empresa novaEmpresa = construirEmpresa(linha[0],linha[1],
 													linha[2],linha[3],
 													cidadesMap, cnaesMap);

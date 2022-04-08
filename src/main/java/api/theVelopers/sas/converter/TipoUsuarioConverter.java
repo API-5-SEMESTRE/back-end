@@ -11,24 +11,24 @@ import api.theVelopers.sas.enumeration.TipoUsuario;
 import static api.theVelopers.sas.enumeration.TipoUsuario.*;
 
 @Converter(autoApply = true)
-public class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, Integer>{
+public class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, String>{
 
 	@Override
-	public Integer convertToDatabaseColumn(TipoUsuario attribute) {
+	public String convertToDatabaseColumn(TipoUsuario tipo) {
 
-		if(attribute == null) {
+		if(tipo == null) {
 			return null;
 		}
 		
-		switch(attribute) {
+		switch(tipo) {
 		case ADMINISTRADOR:
-			return 1;
+			return "ADMINISTRADOR";
 		
 		case VENDEDOR:
-			return 2;
+			return "VENDEDOR";
 		
 		case INTELIGENCIA:
-			return 3;
+			return "INTELIGENCIA";
 		
 		default:
 			throw new IllegalArgumentException();
@@ -36,19 +36,19 @@ public class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, Int
 	}
 
 	@Override
-	public TipoUsuario convertToEntityAttribute(Integer dbData) {
+	public TipoUsuario convertToEntityAttribute(String dbData) {
 		if(dbData == null) {
 			return null;
 		}
 		
 		switch(dbData) {
-		case 1:
+		case "ADIMINISTRADOR":
 			return ADMINISTRADOR;
 		
-		case 2:
+		case "VENDEDOR":
 			return VENDEDOR;
 		
-		case 3:
+		case "INTELIGENCIA":
 			return INTELIGENCIA;
 		
 		default:

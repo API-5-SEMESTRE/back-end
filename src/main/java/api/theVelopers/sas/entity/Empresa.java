@@ -20,8 +20,6 @@ public class Empresa {
 	
 	
 	public static final String ID = "emp_cnpj";
-	public static final String CIDADE="cidade_cid_id";
-	public static final String CNAE="cnae_cnae_id";
 	public static final String ORIGEM="emp_origem";
 	public static final String DATA_CADASTRO_VENDEDOR="emp_data_cadastro_vendedor";
 	

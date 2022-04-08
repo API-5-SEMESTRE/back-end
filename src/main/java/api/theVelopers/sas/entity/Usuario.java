@@ -1,15 +1,13 @@
 package api.theVelopers.sas.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import api.theVelopers.sas.converter.TipoUsuarioConverter;
+import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.enumeration.TipoUsuario;
 
 @Entity
@@ -23,7 +21,13 @@ public class Usuario {
 	public static final String TIPO_ACESSO = "usu_tipo_acesso";
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "usuario_sequence")
+	@SequenceGenerator(
+            name = "usuario_sequence",
+            sequenceName = "usuario_sequence",
+            allocationSize = 1,
+            initialValue = 0
+    )
 	@Column(name=ID)
 	private Long id;
 	
@@ -79,5 +83,15 @@ public class Usuario {
 
 	public void setTipoAcesso(TipoUsuario tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
+	}
+	
+	public static UsuarioDTO paraDTO(Usuario usuario) {
+		UsuarioDTO dto = new UsuarioDTO();
+		
+		dto.setId(usuario.getId());
+		dto.setNome(usuario.getNome());
+		dto.setTipoAcesso(usuario.getTipoAcesso().toString());
+		
+		return dto;
 	}
 }

@@ -16,7 +16,6 @@ public class Cidade {
 	public static final String REGISTRO_IBGE = "cid_reg_ibge";
 	
 	@Id
-	@GeneratedValue
 	@Column(name=ID)
 	private Long id;
 	

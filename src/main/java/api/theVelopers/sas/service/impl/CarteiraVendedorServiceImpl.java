@@ -36,6 +36,15 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	}
 	
 	@Override
+	public void removerVendedorEmpresa(Long cnpjEmpresa) {
+		Empresa empresa = empresaService.procurarPorId(cnpjEmpresa).get();
+		
+		empresa.setUsuario(null);
+		
+		empresaService.salvarFlush(empresa);
+	}
+	
+	@Override
 	public CarteiraVendedor criarCarteiraVendedor(Long idVendedor) {
 		Usuario vendedor = crudUsuario.procurarPorId(idVendedor).get();
 		List<Empresa> empresasQueVendedorAtua = empresaService.findByUsuario(vendedor);
