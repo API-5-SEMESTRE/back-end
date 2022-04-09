@@ -42,7 +42,7 @@ public class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, Str
 		}
 		
 		switch(dbData) {
-		case "ADIMINISTRADOR":
+		case "ADMINISTRADOR":
 			return ADMINISTRADOR;
 		
 		case "VENDEDOR":

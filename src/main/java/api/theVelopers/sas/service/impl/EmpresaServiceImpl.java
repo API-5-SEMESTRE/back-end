@@ -42,4 +42,11 @@ public class EmpresaServiceImpl implements EmpresaService{
 		return empresas.stream().map(Empresa::paraDTO).collect(Collectors.toList());
 	}
 
+	@Override
+	public EmpresaDTO procurarPorCnpj(Long cnpj) {
+		Empresa empresa = empresaRepo.getById(cnpj);
+		
+		return Empresa.paraDTO(empresa);
+	}
+
 }
