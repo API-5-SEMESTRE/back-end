@@ -11,6 +11,7 @@ public interface UsuarioService{
 	UsuarioDTO procurarPorId(Long id);
 	UsuarioDTO procurarPorEmail(String email);
 	UsuarioDTO salvarComFlush(Usuario usuario);
+	UsuarioDTO atualizar(Long id, Usuario usuario);
 	List<UsuarioDTO> buscarTodos();
 	List<UsuarioDTO> salvarTodos(Iterable<Usuario> usuarios);
 	List<UsuarioDTO> salvarTodosFlush(Iterable<Usuario> usuarios);
