@@ -1,5 +1,6 @@
 package api.theVelopers.sas.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,21 @@ public class ConsumoServiceImpl implements ConsumoService{
 	@Override
 	public List<Consumo> salvarTodosFlush(Iterable<Consumo> consumos) {
 		return repo.saveAllAndFlush(consumos);
+	}
+
+	@Override
+	public Long procurarSomaConsumoPorEmpresa(Long cnpj) {
+		return repo.procurarSomaConsumoPorEmpresa(cnpj);
+	}
+
+	@Override
+	public Long procurarSomaConsumoPorEmpresaData(Long cnpj, LocalDateTime data) {
+		return repo.procurarSomaConsumoPorEmpresaData(cnpj, data);
+	}
+
+	@Override
+	public Long procurarSomaConsumoPorVendedor(Long id) {
+		return repo.procurarPorSomaConsumoPorVendedor(id);
 	}
 	
 }

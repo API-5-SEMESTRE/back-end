@@ -13,4 +13,5 @@ public interface EmpresaService{
 	List<Empresa> salvarTodos(Iterable<Empresa> empresas);
 	List<Empresa> salvarTodosFlush(Iterable<Empresa> empresas);
 	List<EmpresaDTO> procurarTodos();
+	List<Long> findAllCnpj();
 }

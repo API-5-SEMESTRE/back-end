@@ -9,6 +9,8 @@ public class CarteiraVendedor {
 	
 	private List<Empresa> clientes;
 	
+	private Long score;
+	
 	public CarteiraVendedor() {}
 
 	public Usuario getVendedor() {
@@ -25,5 +27,13 @@ public class CarteiraVendedor {
 
 	public void setClientes(List<Empresa> clientes) {
 		this.clientes = clientes;
+	}
+
+	public Long getScore() {
+		return score;
+	}
+
+	public void setScore(Long score) {
+		this.score = score;
 	}
 }	

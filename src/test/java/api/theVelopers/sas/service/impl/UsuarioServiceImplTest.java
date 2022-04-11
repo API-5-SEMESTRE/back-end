@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoUsuario;
+import api.theVelopers.sas.service.UsuarioService;
 
 @SpringBootTest
 @Transactional
 class UsuarioServiceImplTest {
 	
 	@Autowired
-	private UsuarioServiceImpl service;
+	private UsuarioService service;
 	
 	@Test
 	@Rollback

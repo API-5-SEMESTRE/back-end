@@ -168,7 +168,7 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 		
 		Consumo consumo = new Consumo();
 		ConsumoId consumoId = new ConsumoId();
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss");
 		LocalDateTime mes = LocalDateTime.parse(mesReferencia, formatador);
 		
 		consumoId.setEmpresa(empresasMap.get(Long.valueOf(cnpj)));

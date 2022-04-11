@@ -49,4 +49,9 @@ public class EmpresaServiceImpl implements EmpresaService{
 		return Empresa.paraDTO(empresa);
 	}
 
+	@Override
+	public List<Long> findAllCnpj() {
+		return empresaRepo.findAllCnpj();
+	}
+
 }

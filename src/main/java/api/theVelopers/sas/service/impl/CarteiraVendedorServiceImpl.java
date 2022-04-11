@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.repository.ConsumoRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
 import api.theVelopers.sas.repository.UsuarioRepository;
 import api.theVelopers.sas.service.CarteiraVendedorService;
@@ -21,6 +22,8 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	private EmpresaRepository empresaRepo;
 	@Autowired
 	private UsuarioRepository usuarioRepo;
+	@Autowired
+	private ConsumoRepository consumoRepo;
 	
 	@Override
 	public void adicionarVendedorEmpresa(Long idUsuario, Long cnpjEmpresa) {
@@ -48,10 +51,12 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	public CarteiraVendedor criarCarteiraVendedor(Long idVendedor) {
 		Usuario vendedor = usuarioRepo.getById(idVendedor);
 		List<Empresa> empresasQueVendedorAtua = empresaRepo.findByUsuario(vendedor);
+		Long soma = consumoRepo.procurarPorSomaConsumoPorVendedor(idVendedor);
 		
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
 		carteiraVendedor.setClientes(empresasQueVendedorAtua);
 		carteiraVendedor.setVendedor(vendedor);
+		carteiraVendedor.setScore(soma);
 		
 		return carteiraVendedor;
 	}

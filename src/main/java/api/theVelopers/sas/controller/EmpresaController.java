@@ -38,10 +38,10 @@ public class EmpresaController {
 	}
 	
 	@GetMapping("/todas-empresas")
-	public ResponseEntity<List<EmpresaDTO>> pesquisarTodasEmpresas() {
-		final List<EmpresaDTO> empresas = empresaService.procurarTodos();
+	public ResponseEntity<List<Long>> pesquisarTodasEmpresas() {
+		final List<Long> cnpjs = empresaService.findAllCnpj();
 		
-		return new ResponseEntity<>(empresas, OK);
+		return new ResponseEntity<>(cnpjs, OK);
 	}
 	
 	@GetMapping("/pesquisar-empresa/{cnpj}")
