@@ -50,10 +50,6 @@ class TransformarDadosServiceImplTest {
 		
 		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
 		
-		//cidadeRepo.saveAll(cidades);
-		
-		//List<Cidade> checar = cidadeRepo.findAll();
-		
 		assertTrue(cidades.size() == 11155);
 	}
 	
