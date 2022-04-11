@@ -8,6 +8,8 @@ public class UsuarioDTO {
 	
 	private String tipoAcesso;
 	
+	private String email;
+	
 	public UsuarioDTO() {}
 
 	public Long getId() {
@@ -33,4 +35,12 @@ public class UsuarioDTO {
 	public void setTipoAcesso(String tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	
 }
