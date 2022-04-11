@@ -39,6 +39,13 @@ public class UsuarioController {
 		return new ResponseEntity<>(novoUsuario, CREATED);
 	}
 	
+	@PutMapping("/atualizar-dados/{id}")
+	public ResponseEntity<UsuarioDTO> atualizarDados(@PathVariable("id") Long idUsuario, @RequestBody Usuario usuario) {
+		final UsuarioDTO usuarioAtualizado = usuarioService.atualizar(idUsuario, usuario);
+		
+		return new ResponseEntity<>(usuarioAtualizado, OK);
+	}
+	
 	@GetMapping("/todos-usuarios")
 	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosUsuarios() {
 		List<UsuarioDTO> usuarios = usuarioService.buscarTodos();
