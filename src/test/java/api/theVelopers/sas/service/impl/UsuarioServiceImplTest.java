@@ -8,8 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoUsuario;
+import api.theVelopers.sas.service.CarteiraVendedorService;
 import api.theVelopers.sas.service.UsuarioService;
 
 @SpringBootTest
@@ -18,6 +20,8 @@ class UsuarioServiceImplTest {
 	
 	@Autowired
 	private UsuarioService service;
+	@Autowired
+	private CarteiraVendedorService cartServ;
 	
 	@Test
 	@Rollback
@@ -32,6 +36,13 @@ class UsuarioServiceImplTest {
 		service.salvar(usu);
 		
 		assertTrue(usu.getId()!=null);
+	}
+	
+	@Test
+	@Rollback
+	void criarCarteiraVendedorDeveFuncionar() {
+		CarteiraVendedor carteira = cartServ.criarCarteiraVendedor(62l);
+		
 	}
 
 }

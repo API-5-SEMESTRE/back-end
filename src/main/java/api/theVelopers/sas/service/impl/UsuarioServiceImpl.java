@@ -76,4 +76,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void deletarTodos(Iterable<Usuario> usuarios) {
 		repo.deleteAllInBatch(usuarios);
 	}
+	
+	@Override
+	public UsuarioDTO atualizar(Long id, Usuario usuario) {
+		Usuario usuarioBd = repo.findById(id).get();
+		
+		usuarioBd.setEmail(usuario.getEmail());
+		usuarioBd.setNome(usuario.getNome());
+		usuarioBd.setTipoAcesso(usuario.getTipoAcesso());
+		
+		repo.saveAndFlush(usuarioBd);
+		
+		return Usuario.paraDTO(usuarioBd);
+	}
 }

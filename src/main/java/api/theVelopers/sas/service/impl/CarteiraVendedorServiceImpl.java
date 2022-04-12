@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.enumeration.TipoEmpresa;
 import api.theVelopers.sas.repository.ConsumoRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
 import api.theVelopers.sas.repository.UsuarioRepository;
@@ -27,10 +28,13 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	
 	@Override
 	public void adicionarVendedorEmpresa(Long idUsuario, Long cnpjEmpresa) {
-		Usuario usuario = usuarioRepo.getById(idUsuario);
-		Empresa empresa = empresaRepo.getById(cnpjEmpresa);
+		Usuario usuario = usuarioRepo.findById(idUsuario).get();
+		Empresa empresa = empresaRepo.findById(cnpjEmpresa).get();
 		
 		empresa.setUsuario(usuario);
+		if(empresa.getOrigem() != TipoEmpresa.SPC) {
+			empresa.setOrigem(TipoEmpresa.SPC);
+		}
 		
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
 		LocalDateTime dataCadastroVendedor = LocalDateTime.parse(LocalDateTime.now().toString(), formatador);
@@ -40,19 +44,21 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	
 	@Override
 	public void removerVendedorEmpresa(Long cnpjEmpresa) {
-		Empresa empresa = empresaRepo.getById(cnpjEmpresa);
+		Empresa empresa = empresaRepo.findById(cnpjEmpresa).get();
 		
 		empresa.setUsuario(null);
+		
+		empresa.setOrigem(TipoEmpresa.LIVRE);
 		
 		empresaRepo.save(empresa);
 	}
 	
 	@Override
 	public CarteiraVendedor criarCarteiraVendedor(Long idVendedor) {
-		Usuario vendedor = usuarioRepo.getById(idVendedor);
+		Usuario vendedor = usuarioRepo.findById(idVendedor).get();
 		List<Empresa> empresasQueVendedorAtua = empresaRepo.findByUsuario(vendedor);
 		Long soma = consumoRepo.procurarPorSomaConsumoPorVendedor(idVendedor);
-		
+		vendedor.getEmail();
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
 		carteiraVendedor.setClientes(empresasQueVendedorAtua);
 		carteiraVendedor.setVendedor(vendedor);
