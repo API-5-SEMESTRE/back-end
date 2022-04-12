@@ -156,25 +156,24 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	
 	private Set<Consumo> construirConsumos(List<String[]> linhas) {
 		Set<Consumo> consumos = new LinkedHashSet<>();
-		final HashMap<Long, Empresa> empresasMap = construirMapEmpresas();
-		
+		//final HashMap<Long, Empresa> empresasMap = construirMapEmpresas();
 		
 		linhas.stream().forEach(linha -> {
-			Consumo consumo = construirConsumo(linha[0], linha[1], linha[2], empresasMap);
+			Consumo consumo = construirConsumo(linha[0], linha[1], linha[2]);
 			consumos.add(consumo);
 		});
 
 		return consumos;
 	}
 	
-	private Consumo construirConsumo(String mesReferencia, String cnpj, String qtdConsumo, Map<Long, Empresa> empresasMap) {
+	private Consumo construirConsumo(String mesReferencia, String cnpj, String qtdConsumo) {
 		
 		Consumo consumo = new Consumo();
 		ConsumoId consumoId = new ConsumoId();
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		LocalDateTime mes = LocalDateTime.parse(mesReferencia, formatador);
-		
-		consumoId.setEmpresa(empresasMap.get(Long.valueOf(cnpj)));
+		Empresa empresa = empresaRepo.findById(Long.valueOf(cnpj)).get();
+		consumoId.setEmpresa(empresa);
 		consumoId.setMesReferencia(mes);
 		consumoId.setQuantidadeConsumo(Long.valueOf(qtdConsumo));
 		consumo.setConsumoId(consumoId);

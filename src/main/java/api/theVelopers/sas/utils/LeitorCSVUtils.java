@@ -78,7 +78,9 @@ public abstract class LeitorCSVUtils {
 			}
 			String temp3 = sb.toString().replaceAll("!", "");
 			String[] resultado = temp3.split(";");
-			linhasFormatadas.add(resultado);
+			if(!StringUtils.isBlank(temp3)) {
+				linhasFormatadas.add(resultado);
+			}
 		}
 		
 		return linhasFormatadas;
