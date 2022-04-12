@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 import api.theVelopers.sas.dto.EmpresaDTO;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 
@@ -24,7 +22,6 @@ public class Empresa {
 	public static final String DATA_CADASTRO_VENDEDOR="emp_data_cadastro_vendedor";
 	
 	@Id
-	@CNPJ
 	@Column(name=ID)
 	private Long cnpj;
 	

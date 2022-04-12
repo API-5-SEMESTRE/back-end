@@ -37,10 +37,15 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 			empresa.setOrigem(TipoEmpresa.SPC);
 		}
 		
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
-		LocalDateTime dataCadastroVendedor = LocalDateTime.parse(LocalDateTime.now().toString(), formatador);
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		LocalDateTime hoje = LocalDateTime.now();
+		String hojeFormatado = hoje.format(formatador);
+		
+		LocalDateTime dataCadastroVendedor = LocalDateTime.parse(hojeFormatado, formatador);
 		
 		empresa.setDataDeCadastroVendedor(dataCadastroVendedor);
+		
+		empresaRepo.saveAndFlush(empresa);
 	}
 	
 	@Override
