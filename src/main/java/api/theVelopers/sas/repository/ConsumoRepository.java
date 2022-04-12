@@ -19,6 +19,6 @@ public interface ConsumoRepository extends JpaRepository<Consumo, Long>{
 	Long procurarSomaConsumoPorEmpresaData(Long cnpj, LocalDateTime data);
 	
 	@Query("select sum(c.consumoId.quantidadeConsumo) from Consumo c where c.consumoId.empresa.usuario.id = ?1"
-			+ " and c.consumoId.mesReferencia <= c.consumoId.empresa.dataDeCadastroVendedor")
+			+ " and c.consumoId.mesReferencia >= c.consumoId.empresa.dataDeCadastroVendedor")
 	Long procurarPorSomaConsumoPorVendedor(Long id);
 }

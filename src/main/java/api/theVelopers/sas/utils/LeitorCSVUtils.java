@@ -50,16 +50,37 @@ public abstract class LeitorCSVUtils {
 		
 		List<String[]> linhas = processadorLinha.getRows();
 		
+		
 		List<String[]> linhasFormatadas = new ArrayList<>();
 		
 		for(String[] l: linhas) {
 			String temp = StringUtils.join(l);
-			temp = temp.replaceAll("\"", "");
-			String[] resultado = temp.split(",");
+			
+			char[] linha = temp.toCharArray();
+			boolean flag = false;
+			for(int i=0;i<linha.length;i++) {
+				if(linha[i] ==  '\"') {
+					if(flag) {
+						flag = false;
+					} else {
+						flag = true;
+					}
+					linha[i] = '!';
+				} else if(linha[i] == ',') {
+					if(!flag) {
+						linha[i] = ';';
+					}
+				}
+			}
+			StringBuilder sb = new StringBuilder();
+			for(char c: linha) {
+				sb.append(c);
+			}
+			String temp3 = sb.toString().replaceAll("!", "");
+			String[] resultado = temp3.split(";");
 			linhasFormatadas.add(resultado);
 		}
 		
 		return linhasFormatadas;
 	}
-
 }
