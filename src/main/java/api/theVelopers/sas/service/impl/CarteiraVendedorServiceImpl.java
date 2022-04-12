@@ -1,5 +1,6 @@
 package api.theVelopers.sas.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -62,7 +63,7 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
 		carteiraVendedor.setClientes(empresasQueVendedorAtua);
 		carteiraVendedor.setVendedor(vendedor);
-		carteiraVendedor.setScore(soma);
+		carteiraVendedor.setScore(soma == null? 0l:soma);
 		
 		return carteiraVendedor;
 	}
