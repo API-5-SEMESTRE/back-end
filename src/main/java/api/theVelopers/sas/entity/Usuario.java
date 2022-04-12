@@ -91,6 +91,7 @@ public class Usuario {
 		dto.setId(usuario.getId());
 		dto.setNome(usuario.getNome());
 		dto.setTipoAcesso(usuario.getTipoAcesso().toString());
+		dto.setEmail(usuario.getEmail());
 		
 		return dto;
 	}
