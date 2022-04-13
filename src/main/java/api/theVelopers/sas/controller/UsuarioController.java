@@ -80,7 +80,9 @@ public class UsuarioController {
 	@PutMapping("/adicionar-vendedor-empresa/{id}/{cnpj}")
 	public ResponseEntity<?> adicionarVendedorEmpresa(@PathVariable("id")Long idUsuario,
 														@PathVariable("cnpj")Long cnpj) {
+		
 		carteiraService.adicionarVendedorEmpresa(idUsuario, cnpj);
+		
 		
 		return  ResponseEntity.ok(EMPRESA_ADICIONADA);
 	}

@@ -1,6 +1,5 @@
 package api.theVelopers.sas.service.impl;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,6 +11,7 @@ import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
+import api.theVelopers.sas.enumeration.TipoUsuario;
 import api.theVelopers.sas.repository.ConsumoRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
 import api.theVelopers.sas.repository.UsuarioRepository;
@@ -31,6 +31,14 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 	public void adicionarVendedorEmpresa(Long idUsuario, Long cnpjEmpresa) {
 		Usuario usuario = usuarioRepo.findById(idUsuario).get();
 		Empresa empresa = empresaRepo.findById(cnpjEmpresa).get();
+		
+		if(empresa.getDataDeCadastroVendedor() != null) {
+			throw new RuntimeException("Empresa já possui vendedor associado");
+		}
+		
+		if(usuario.getTipoAcesso() != TipoUsuario.VENDEDOR) {
+			throw new RuntimeException("Tipo de usuário não possui carteira");
+		}
 		
 		empresa.setUsuario(usuario);
 		if(empresa.getOrigem() != TipoEmpresa.SPC) {
@@ -53,6 +61,7 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		Empresa empresa = empresaRepo.findById(cnpjEmpresa).get();
 		
 		empresa.setUsuario(null);
+		empresa.setDataDeCadastroVendedor(null);
 		
 		empresa.setOrigem(TipoEmpresa.LIVRE);
 		

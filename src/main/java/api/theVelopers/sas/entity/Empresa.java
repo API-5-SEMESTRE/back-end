@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import api.theVelopers.sas.dto.EmpresaDTO;
@@ -43,8 +44,12 @@ public class Empresa {
 	@Column(name=DATA_CADASTRO_VENDEDOR)
 	private LocalDateTime dataDeCadastroVendedor;
 	
-	@ManyToOne
-	@JoinColumn(name=Usuario.ID)
+	@OneToOne
+	@JoinColumn(
+			name=Usuario.ID,
+			referencedColumnName=Usuario.ID,
+			nullable = true
+			)
 	private Usuario usuario;
 	
 	public Usuario getUsuario() {
