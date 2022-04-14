@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
 import api.theVelopers.sas.entity.Cnae;
+import api.theVelopers.sas.entity.Consumo;
+import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @SpringBootTest
@@ -76,6 +78,54 @@ class TransformarDadosServiceImplTest {
 		Set<Cnae> cnaes= service.transformarDadosCnae(arquivo);
 		
 		assertTrue(cnaes.size() == 1362);
+	}
+	
+	@Test
+	void carregarDadosEmpresaDeveFuncionar() {
+		StringBuilder nomeCaminho = new StringBuilder();
+		nomeCaminho.append("./uploads/");
+		nomeCaminho.append("base_empresas");
+		nomeCaminho.append(".csv");
+
+		Path caminho = Paths.get(nomeCaminho.toString());
+
+		byte[] conteudo = null;
+
+		try {
+			conteudo = Files.readAllBytes(caminho);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		MultipartFile arquivo = new MockMultipartFile("base_empresas.csv", conteudo);
+
+		Set<Empresa> cnaes= service.transformarDadosEmpresa(arquivo);
+		
+		assertTrue(cnaes.size() == 3300);
+	}
+	
+	@Test
+	void carregarDadosConsumoDeveFuncionar() {
+		StringBuilder nomeCaminho = new StringBuilder();
+		nomeCaminho.append("./uploads/");
+		nomeCaminho.append("base_consumo2");
+		nomeCaminho.append(".csv");
+
+		Path caminho = Paths.get(nomeCaminho.toString());
+
+		byte[] conteudo = null;
+
+		try {
+			conteudo = Files.readAllBytes(caminho);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		MultipartFile arquivo = new MockMultipartFile("base_consumo.csv2", conteudo);
+
+		Set<Consumo> cnaes= service.transformarDadosConsumo(arquivo);
+		
+		assertTrue(cnaes.size() == 5);
 	}
 
 }

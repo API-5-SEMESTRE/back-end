@@ -27,6 +27,8 @@ import api.theVelopers.sas.service.UsuarioService;
 public class UsuarioController {
 	
 	public static final String USUARIO_DELETADO = "Usuário deletado com sucesso";
+	public static final String EMPRESA_ADICIONADA = "Empresa adicionada na carteira com sucesso";
+	public static final String EMPRESA_REMOVIDA = "Empresa removida da carteira com sucesso";
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -74,4 +76,21 @@ public class UsuarioController {
 		
 		return new ResponseEntity<>(carteira, OK);
 	}
+	
+	@PutMapping("/adicionar-vendedor-empresa/{id}/{cnpj}")
+	public ResponseEntity<?> adicionarVendedorEmpresa(@PathVariable("id")Long idUsuario,
+														@PathVariable("cnpj")Long cnpj) {
+		
+		carteiraService.adicionarVendedorEmpresa(idUsuario, cnpj);
+		
+		
+		return  ResponseEntity.ok(EMPRESA_ADICIONADA);
+	}
+	
+	@DeleteMapping("/deletar-vendedor-empresa/{cnpj}")
+    public ResponseEntity<?> deletarUsuarioEmpresa(@PathVariable("cnpj") Long cnpj) {
+		carteiraService.removerVendedorEmpresa(cnpj);
+
+        return ResponseEntity.ok(USUARIO_DELETADO);
+    }
 }
