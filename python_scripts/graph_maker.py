@@ -85,7 +85,7 @@ for i in c:
     spc.append(i)
 #print(spc)
 
-
+plot = []
 consumo = []
 score = []
 for data in spc:
@@ -112,17 +112,28 @@ for data in spc:
             sc = analyse_consumo(consumo)
             print(f"SCORE: {sc}\n-------------------")
             if sc > 980 or sc < 220:
+                plot.append(sc)
                 if randint(1, 20) > 8:
-                    score.append({"consumos": consumo, "score": sc})
+                    score.append({"total": sum(consumo), "media": int(sum(consumo)/len(consumo)), "score": sc, "consumos": consumo, "cnpj": data[1]})
             else:
-                if randint(1, 20) > 18:
-                    score.append({"consumos": consumo, "score": sc})
+                if randint(1, 20) > 14:
+                    score.append({"total": sum(consumo), "media": int(sum(consumo)/len(consumo)), "score": sc, "consumos": consumo, "cnpj": data[1]})
             consumo = []
 
 print(len(score))
 for i in score:
     pass
     #print(i)
+
+
+c = cursor.execute("SELECT * FROM cidade")
+for i in c:
+    print(i)
+
+
+df = pandas.DataFrame(score)
+df.to_csv("scores-sample.csv", index=False, columns=["cnpj", "total", "media", "score"], sep=";")
+
 
 
 
