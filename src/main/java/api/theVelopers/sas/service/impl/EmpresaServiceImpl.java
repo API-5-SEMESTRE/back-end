@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import api.theVelopers.sas.dto.EmpresaDTO;
@@ -52,6 +56,12 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Override
 	public List<Long> findAllCnpj() {
 		return empresaRepo.findAllCnpj();
+	}
+	
+	@Override
+	public Page<Empresa> todasEmpresas(int pagina, int tamanho) {
+		Page<Empresa> empresas = empresaRepo.findAll(PageRequest.of(pagina, tamanho));
+		return empresas;
 	}
 
 }

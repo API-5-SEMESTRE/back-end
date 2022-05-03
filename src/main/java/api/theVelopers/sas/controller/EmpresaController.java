@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,13 @@ public class EmpresaController {
 	@GetMapping("/todas-empresas")
 	public ResponseEntity<List<Long>> pesquisarTodasEmpresas() {
 		final List<Long> cnpjs = empresaService.findAllCnpj();
+		
+		return new ResponseEntity<>(cnpjs, OK);
+	}
+	
+	@GetMapping("/todas-empresas/{pagina}/{tamanho}")
+	public ResponseEntity<Page<Empresa>> pesquisarTodasEmpresasPaginacao(@PathVariable int pagina, @PathVariable int tamanho) {
+		final Page<Empresa> cnpjs = empresaService.todasEmpresas(pagina, tamanho);
 		
 		return new ResponseEntity<>(cnpjs, OK);
 	}
