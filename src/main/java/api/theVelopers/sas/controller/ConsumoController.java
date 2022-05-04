@@ -62,9 +62,16 @@ public class ConsumoController {
 		return new ResponseEntity<>(soma, OK);
 	}
 	
-	@GetMapping("/consumos-empresa/{cnpj}")
+	@GetMapping("/lista-consumo-empresa/{cnpj}")
 	public ResponseEntity<List<ConsumoDTO>> pesquisarConsumosPorCnpj(@PathVariable("cnpj")Long cnpj) {
 		final List<ConsumoDTO> consumos = consumoService.procurarConsumosPorCnpj(cnpj);
+		
+		return new ResponseEntity<>(consumos, OK);
+	}
+	
+	@GetMapping("/lista-consumo-vendedor/{id}")
+	public ResponseEntity<List<ConsumoDTO>> pesquisarConsumosPorIdVendedor(@PathVariable("id")Long id) {
+		final List<ConsumoDTO> consumos = consumoService.procurarConsumosPorIdVendedor(id);
 		
 		return new ResponseEntity<>(consumos, OK);
 	}

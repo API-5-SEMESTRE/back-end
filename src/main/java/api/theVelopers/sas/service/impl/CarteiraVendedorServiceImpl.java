@@ -2,7 +2,14 @@ package api.theVelopers.sas.service.impl;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,10 +83,28 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		vendedor.getEmail();
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
 		carteiraVendedor.setClientes(empresasQueVendedorAtua);
-		carteiraVendedor.setVendedor(vendedor);
+		carteiraVendedor.setVendedor(Usuario.paraDTO(vendedor));
 		carteiraVendedor.setScore(soma == null? 0l:soma);
 		
 		return carteiraVendedor;
+	}
+	
+	@Override
+	public List<CarteiraVendedor> procurarMelhoresVendedores() {
+		List<Usuario> vendedores = usuarioRepo.findAllVendedor();
+		List<CarteiraVendedor> carteiras = new ArrayList<>();
+		
+		vendedores.forEach(v -> {
+			CarteiraVendedor carteira = criarCarteiraVendedor(v.getId());
+			carteiras.add(carteira);
+		});
+		
+		Comparator<CarteiraVendedor> compararScore = Comparator.comparing(
+				CarteiraVendedor::getScore);
+		
+		List<CarteiraVendedor> resultado = carteiras.stream().sorted(compararScore.reversed()).collect(Collectors.toList());
+		
+		return resultado.subList(0, 3);
 	}
 	
 }

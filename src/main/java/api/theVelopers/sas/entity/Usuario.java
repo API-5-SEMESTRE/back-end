@@ -1,5 +1,7 @@
 package api.theVelopers.sas.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -95,4 +97,23 @@ public class Usuario {
 		
 		return dto;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
+	}
+	
+	
 }

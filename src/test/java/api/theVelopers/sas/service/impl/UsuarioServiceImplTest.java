@@ -2,6 +2,9 @@ package api.theVelopers.sas.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,8 +44,15 @@ class UsuarioServiceImplTest {
 	@Test
 	@Rollback
 	void criarCarteiraVendedorDeveFuncionar() {
-		CarteiraVendedor carteira = cartServ.criarCarteiraVendedor(62l);
-		
+		CarteiraVendedor carteira = cartServ.criarCarteiraVendedor(69l);
+		assertTrue(carteira != null);
+	}
+	
+	@Test
+	@Rollback
+	void rankingMelhoresVendedoresDeveFuncionar() {
+		List<CarteiraVendedor> ranking = cartServ.procurarMelhoresVendedores();
+		assertTrue(StringUtils.equals(ranking.get(0).getVendedor().getNome(), "Devanir"));
 	}
 
 }

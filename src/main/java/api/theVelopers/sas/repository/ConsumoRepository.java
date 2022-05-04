@@ -25,5 +25,8 @@ public interface ConsumoRepository extends JpaRepository<Consumo, Long>{
 	Long procurarPorSomaConsumoPorVendedor(Long id);
 	
 	@Query(nativeQuery=true)
-	List<ConsumoDTO> findConsumoMesReferenciaDTOById_Named(Long cnpj);
+	List<ConsumoDTO> findConsumoMesReferenciaDTOByEmpresaId_Named(Long cnpj);
+	
+	@Query(nativeQuery=true)
+	List<ConsumoDTO> findConsumoMesReferenciaDTOByUsuarioId_Named(Long id);
 }

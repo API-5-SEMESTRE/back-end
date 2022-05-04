@@ -49,14 +49,21 @@ public class UsuarioController {
 		return new ResponseEntity<>(usuarioAtualizado, OK);
 	}
 	
-	@GetMapping("/todos-usuarios")
+	@GetMapping("/todos")
 	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosUsuarios() {
 		List<UsuarioDTO> usuarios = usuarioService.buscarTodos();
 		
 		return new ResponseEntity<>(usuarios, OK);
 	}
 	
-	@GetMapping("/todos-usuarios/{email}")
+	@GetMapping("/todos-vendedores")
+	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosVendedores() {
+		List<UsuarioDTO> usuarios = usuarioService.buscarTodosVendedores();
+		
+		return new ResponseEntity<>(usuarios, OK);
+	}
+	
+	@GetMapping("/pesquisar-por-email/{email}")
 	public ResponseEntity<UsuarioDTO> pesquisarPorEmail(@PathVariable("email") String email) {
 		UsuarioDTO usuarios = usuarioService.procurarPorEmail(email);
 		
@@ -73,6 +80,13 @@ public class UsuarioController {
 	@GetMapping("/carteira-vendedor/{id}")
 	public ResponseEntity<CarteiraVendedor> pesquisarCarteira(@PathVariable("id") Long idUsuario) {
 		CarteiraVendedor carteira = carteiraService.criarCarteiraVendedor(idUsuario);
+		
+		return new ResponseEntity<>(carteira, OK);
+	}
+	
+	@GetMapping("/ranking-vendedor/")
+	public ResponseEntity<List<CarteiraVendedor>> pesquisarRanking() {
+		List<CarteiraVendedor> carteira = carteiraService.procurarMelhoresVendedores();
 		
 		return new ResponseEntity<>(carteira, OK);
 	}

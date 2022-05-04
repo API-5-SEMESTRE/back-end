@@ -2,10 +2,12 @@ package api.theVelopers.sas.entity;
 
 import java.util.List;
 
+import api.theVelopers.sas.dto.UsuarioDTO;
+
 
 public class CarteiraVendedor {
 	
-	private Usuario vendedor;
+	private UsuarioDTO vendedor;
 	
 	private List<Empresa> clientes;
 	
@@ -13,11 +15,11 @@ public class CarteiraVendedor {
 	
 	public CarteiraVendedor() {}
 
-	public Usuario getVendedor() {
+	public UsuarioDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(Usuario vendedor) {
+	public void setVendedor(UsuarioDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 

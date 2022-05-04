@@ -44,6 +44,11 @@ public class ConsumoServiceImpl implements ConsumoService{
 
 	@Override
 	public List<ConsumoDTO> procurarConsumosPorCnpj(Long cnpj) {
-		return repo.findConsumoMesReferenciaDTOById_Named(cnpj);
+		return repo.findConsumoMesReferenciaDTOByEmpresaId_Named(cnpj);
+	}
+
+	@Override
+	public List<ConsumoDTO> procurarConsumosPorIdVendedor(Long id) {
+		return repo.findConsumoMesReferenciaDTOByUsuarioId_Named(id);
 	}
 }

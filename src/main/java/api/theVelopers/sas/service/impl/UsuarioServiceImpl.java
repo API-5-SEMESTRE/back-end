@@ -52,6 +52,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		return usuarios.stream().map(Usuario::paraDTO).collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<UsuarioDTO> buscarTodosVendedores() {
+		List<Usuario> usuarios = repo.findAllVendedor();
+		
+		return usuarios.stream().map(Usuario::paraDTO).collect(Collectors.toList());
+	}
 
 	@Override
 	public List<UsuarioDTO> salvarTodos(Iterable<Usuario> usuarios) {

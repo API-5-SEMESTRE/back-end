@@ -11,6 +11,7 @@ public interface ConsumoService {
 	List<Consumo> salvarTodos(Iterable<Consumo> consumos);
 	List<Consumo> salvarTodosFlush(Iterable<Consumo> consumos);
 	List<ConsumoDTO> procurarConsumosPorCnpj(Long cnpj);
+	List<ConsumoDTO> procurarConsumosPorIdVendedor(Long id);
 	Long procurarSomaConsumoPorEmpresa(Long cnpj);
 	Long procurarSomaConsumoPorEmpresaData(Long cnpj, LocalDateTime data);
 	Long procurarSomaConsumoPorVendedor(Long id);
