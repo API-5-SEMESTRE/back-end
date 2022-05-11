@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cidade;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.CidadeService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
 @RequestMapping(path = {"/cidade"})
-public class CidadeController {
+public class CidadeController extends TratamentoExcecao{
 	
 	@Autowired
 	private TransformarDadosService transformarDadosService;

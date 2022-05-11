@@ -18,12 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.dto.EmpresaDTO;
 import api.theVelopers.sas.entity.Empresa;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.EmpresaService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
 @RequestMapping(path = {"/empresa"})
-public class EmpresaController {
+public class EmpresaController extends TratamentoExcecao{
 	
 	@Autowired
 	private TransformarDadosService transformarDadosService;

@@ -9,6 +9,11 @@ import api.theVelopers.sas.entity.Cnae;
 import api.theVelopers.sas.repository.CnaeRepository;
 import api.theVelopers.sas.service.CnaeService;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class CnaeServiceImpl implements CnaeService{
 	

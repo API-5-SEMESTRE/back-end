@@ -9,6 +9,11 @@ import api.theVelopers.sas.entity.Cidade;
 import api.theVelopers.sas.repository.CidadeRepository;
 import api.theVelopers.sas.service.CidadeService;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class CidadeServiceImpl implements CidadeService {
 	

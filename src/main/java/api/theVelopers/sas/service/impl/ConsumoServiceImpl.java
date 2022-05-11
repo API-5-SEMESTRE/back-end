@@ -11,6 +11,11 @@ import api.theVelopers.sas.entity.Consumo;
 import api.theVelopers.sas.repository.ConsumoRepository;
 import api.theVelopers.sas.service.ConsumoService;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class ConsumoServiceImpl implements ConsumoService{
 	

@@ -3,6 +3,11 @@ package api.theVelopers.sas.enumeration;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 public enum TipoUsuario {
 
 	ADMINISTRADOR("ADMINISTRADOR"),
@@ -23,9 +28,15 @@ public enum TipoUsuario {
         return tipo;
     }
     
-    public static Optional<TipoUsuario> get(String url) {
+    /**
+	*
+	* @param String descricao
+	* @return TipoUsuario retorna um Optional do TipoUsuario encontrado
+	* a partir da descricao
+	*/
+    public static Optional<TipoUsuario> get(String descrição) {
         return Arrays.stream(TipoUsuario.values())
-            .filter(tipo -> tipo.tipo.equals(url))
+            .filter(tipo -> tipo.tipo.equals(descrição))
             .findFirst();
     }
 }

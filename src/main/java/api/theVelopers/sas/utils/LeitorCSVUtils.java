@@ -13,8 +13,19 @@ import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
+/**
+ * @author Jeferson 
+ */
 public abstract class LeitorCSVUtils {
-
+	
+	/**
+	* Esse método carrega qualquer tipo de dado de um arquivo csv
+	* o csv deve estar em UTF-8!!!
+	*
+	* @param arquivo .csv
+	* @return List Retorna uma lista de array de String
+	* contendo cada linha do arquivo 
+	*/
 	public static List<String[]>  carregarDados(MultipartFile arquivo) {
 
 		CsvParserSettings parserConfig = new CsvParserSettings();

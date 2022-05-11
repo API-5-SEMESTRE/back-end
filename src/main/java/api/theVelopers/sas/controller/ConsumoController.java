@@ -18,12 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.dto.ConsumoDTO;
 import api.theVelopers.sas.entity.Consumo;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.ConsumoService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
 @RequestMapping(path = {"/consumo"})
-public class ConsumoController {
+public class ConsumoController extends TratamentoExcecao{
 
 	@Autowired
 	private TransformarDadosService transformarDadosService;

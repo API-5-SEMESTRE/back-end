@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.CarteiraVendedorService;
 import api.theVelopers.sas.service.UsuarioService;
 
 @RestController
 @RequestMapping(path = {"/usuario"})
-public class UsuarioController {
+public class UsuarioController extends TratamentoExcecao{
 	
 	public static final String USUARIO_DELETADO = "Usuário deletado com sucesso";
 	public static final String EMPRESA_ADICIONADA = "Empresa adicionada na carteira com sucesso";
@@ -85,8 +87,8 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/ranking-vendedor/")
-	public ResponseEntity<List<CarteiraVendedor>> pesquisarRanking() {
-		List<CarteiraVendedor> carteira = carteiraService.procurarMelhoresVendedores();
+	public ResponseEntity<Map<String, Long>> pesquisarRanking() {
+		Map<String, Long> carteira = carteiraService.procurarMelhoresVendedores();
 		
 		return new ResponseEntity<>(carteira, OK);
 	}
