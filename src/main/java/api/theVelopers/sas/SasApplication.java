@@ -20,7 +20,7 @@ public class SasApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(asList("https://score-analysis-system-front.herokuapp.com/"));
+		corsConfiguration.setAllowedOrigins(asList("https://score-analysis-system-front.herokuapp.com/", "https://sas-flask-api.herokuapp.com"));
 		corsConfiguration.setAllowedHeaders(asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
