@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.enumeration.SenioridadeVendedor;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 import api.theVelopers.sas.enumeration.TipoUsuario;
 import api.theVelopers.sas.exception.NegocioException;
@@ -89,7 +90,28 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		carteiraVendedor.setVendedor(Usuario.paraDTO(vendedor));
 		carteiraVendedor.setScore(soma == null? 0l:soma);
 		
+		SenioridadeVendedor senioridade = vendedor.getDataCriacao() == null ?
+											SenioridadeVendedor.JUNIOR :
+											calcularSenioridade(vendedor.getDataCriacao());
+		carteiraVendedor.setSenioridade(senioridade);
+		
 		return carteiraVendedor;
+	}
+	
+	private SenioridadeVendedor calcularSenioridade(LocalDateTime dataInicio) {
+		LocalDateTime agora = LocalDateTime.now();
+		int anoAgora = agora.getYear();
+		int anoInicio = dataInicio.getYear();
+		
+		int resultado = anoAgora - anoInicio;
+		
+		if(resultado <= 2) {
+			return SenioridadeVendedor.JUNIOR;
+		} else if(resultado <= 5) {
+			return SenioridadeVendedor.PLENO;
+		} 
+		
+		return SenioridadeVendedor.SENIOR;
 	}
 	
 	@Override

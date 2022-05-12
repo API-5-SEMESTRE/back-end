@@ -3,11 +3,6 @@ package api.theVelopers.sas.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.SqlResultSetMapping;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

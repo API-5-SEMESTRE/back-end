@@ -1,5 +1,10 @@
 package api.theVelopers.sas.entity;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 import java.time.LocalDateTime;
 
 import javax.persistence.ColumnResult;

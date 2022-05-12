@@ -2,6 +2,7 @@ package api.theVelopers.sas.controller;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.theVelopers.sas.dto.UsuarioDTO;
@@ -24,6 +26,12 @@ import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.CarteiraVendedorService;
 import api.theVelopers.sas.service.UsuarioService;
 
+
+/**
+ * 
+ * @author jef
+ *
+ */
 @RestController
 @RequestMapping(path = {"/usuario"})
 public class UsuarioController extends TratamentoExcecao{
@@ -38,27 +46,25 @@ public class UsuarioController extends TratamentoExcecao{
 	private CarteiraVendedorService carteiraService;
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<UsuarioDTO> cadastrarUsuario(@RequestBody Usuario usuario) {
-		UsuarioDTO novoUsuario = usuarioService.salvarComFlush(usuario);
-		
-		return new ResponseEntity<>(novoUsuario, CREATED);
+	@ResponseStatus(CREATED)
+	public UsuarioDTO cadastrarUsuario(@RequestBody Usuario usuario) {
+		return usuarioService.salvarComFlush(usuario);
 	}
 	
 	@PutMapping("/atualizar-dados/{id}")
-	public ResponseEntity<UsuarioDTO> atualizarDados(@PathVariable("id") Long idUsuario, @RequestBody Usuario usuario) {
-		final UsuarioDTO usuarioAtualizado = usuarioService.atualizar(idUsuario, usuario);
-		
-		return new ResponseEntity<>(usuarioAtualizado, OK);
+	@ResponseStatus(OK)
+	public UsuarioDTO atualizarDados(@PathVariable("id") Long idUsuario, @RequestBody Usuario usuario) {
+		return usuarioService.atualizar(idUsuario, usuario);
 	}
 	
 	@GetMapping("/todos")
-	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosUsuarios() {
-		List<UsuarioDTO> usuarios = usuarioService.buscarTodos();
-		
-		return new ResponseEntity<>(usuarios, OK);
+	@ResponseStatus(OK)
+	public List<UsuarioDTO> pesquisarTodosUsuarios() {
+		return usuarioService.buscarTodos();
 	}
 	
 	@GetMapping("/todos-vendedores")
+	@ResponseStatus(OK)
 	public ResponseEntity<List<UsuarioDTO>> pesquisarTodosVendedores() {
 		List<UsuarioDTO> usuarios = usuarioService.buscarTodosVendedores();
 		
@@ -66,6 +72,7 @@ public class UsuarioController extends TratamentoExcecao{
 	}
 	
 	@GetMapping("/pesquisar-por-email/{email}")
+	@ResponseStatus(OK)
 	public ResponseEntity<UsuarioDTO> pesquisarPorEmail(@PathVariable("email") String email) {
 		UsuarioDTO usuarios = usuarioService.procurarPorEmail(email);
 		
@@ -73,24 +80,21 @@ public class UsuarioController extends TratamentoExcecao{
 	}
 	
 	@DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable("id") Long id) {
+	@ResponseStatus(NO_CONTENT)
+    public void deletarUsuario(@PathVariable("id") Long id) {
         usuarioService.deletar(id);
-
-        return ResponseEntity.ok(USUARIO_DELETADO);
     }
 	
 	@GetMapping("/carteira-vendedor/{id}")
-	public ResponseEntity<CarteiraVendedor> pesquisarCarteira(@PathVariable("id") Long idUsuario) {
-		CarteiraVendedor carteira = carteiraService.criarCarteiraVendedor(idUsuario);
-		
-		return new ResponseEntity<>(carteira, OK);
+	@ResponseStatus(OK)
+	public CarteiraVendedor pesquisarCarteira(@PathVariable("id") Long idUsuario) {
+		return carteiraService.criarCarteiraVendedor(idUsuario);
 	}
 	
 	@GetMapping("/ranking-vendedor/")
-	public ResponseEntity<Map<String, Long>> pesquisarRanking() {
-		Map<String, Long> carteira = carteiraService.procurarMelhoresVendedores();
-		
-		return new ResponseEntity<>(carteira, OK);
+	@ResponseStatus(OK)
+	public Map<String, Long> pesquisarRanking() {
+		return carteiraService.procurarMelhoresVendedores();
 	}
 	
 	@PutMapping("/adicionar-vendedor-empresa/{id}/{cnpj}")
@@ -98,7 +102,6 @@ public class UsuarioController extends TratamentoExcecao{
 														@PathVariable("cnpj")Long cnpj) {
 		
 		carteiraService.adicionarVendedorEmpresa(idUsuario, cnpj);
-		
 		
 		return  ResponseEntity.ok(EMPRESA_ADICIONADA);
 	}

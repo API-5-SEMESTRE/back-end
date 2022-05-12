@@ -14,7 +14,9 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 /**
- * @author Jeferson 
+ * 
+ * @author jef
+ *
  */
 public abstract class LeitorCSVUtils {
 	
