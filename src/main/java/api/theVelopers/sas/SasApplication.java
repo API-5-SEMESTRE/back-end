@@ -21,6 +21,7 @@ public class SasApplication {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
 		corsConfiguration.setAllowedOrigins(asList("https://score-analysis-system-front.herokuapp.com/", "https://sas-flask-api.herokuapp.com", "http://localhost:3000"));
+		corsConfiguration.setAllowedOrigins(asList("https://score-analysis-system-front.herokuapp.com/", "https://sas-flask-api.herokuapp.com", "http://localhost:8081/", "http://localhost:5000/"));
 		corsConfiguration.setAllowedHeaders(asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
