@@ -42,9 +42,9 @@ public class EmpresaScoreServiceImpl implements EmpresaScoreService{
 	
 	private PageRequest montarPagina(int pagina, int tamanho, int sort) {
 		if(sort == 1) {
-			return PageRequest.of(pagina, tamanho, Sort.by("totalScore").ascending());
+			return PageRequest.of(--pagina, tamanho, Sort.by("totalScore").ascending());
 		}
-		return PageRequest.of(pagina, tamanho, Sort.by("totalScore").descending());
+		return PageRequest.of(--pagina, tamanho, Sort.by("totalScore").descending());
 	}
 
 	@Override

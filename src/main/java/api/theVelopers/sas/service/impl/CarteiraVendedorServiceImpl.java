@@ -1,6 +1,7 @@
 package api.theVelopers.sas.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import api.theVelopers.sas.dto.EmpresaCarteiraDTO;
 import api.theVelopers.sas.entity.CarteiraVendedor;
 import api.theVelopers.sas.entity.Empresa;
 import api.theVelopers.sas.entity.Usuario;
@@ -84,11 +86,12 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		Usuario vendedor = usuarioRepo.findById(idVendedor).get();
 		List<Empresa> empresasQueVendedorAtua = empresaRepo.findByUsuario(vendedor);
 		Long soma = consumoRepo.procurarPorSomaConsumoPorVendedor(idVendedor);
-		vendedor.getEmail();
+		
 		CarteiraVendedor carteiraVendedor = new CarteiraVendedor();
-		carteiraVendedor.setClientes(empresasQueVendedorAtua);
+		carteiraVendedor.setClientes(empresaParaDTO(empresasQueVendedorAtua));
 		carteiraVendedor.setVendedor(Usuario.paraDTO(vendedor));
 		carteiraVendedor.setScore(soma == null? 0l:soma);
+		
 		
 		SenioridadeVendedor senioridade = vendedor.getDataCriacao() == null ?
 											SenioridadeVendedor.JUNIOR :
@@ -96,6 +99,25 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		carteiraVendedor.setSenioridade(senioridade);
 		
 		return carteiraVendedor;
+	}
+	
+	private List<EmpresaCarteiraDTO> empresaParaDTO(List<Empresa> empresas) {
+		List<EmpresaCarteiraDTO> empresasFormatadas = new ArrayList<>();
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		for(Empresa e: empresas) {
+			EmpresaCarteiraDTO dto = new EmpresaCarteiraDTO();
+			dto.setCnpj(e.getCnpj());
+			dto.setOrigem(e.getOrigem());
+			dto.setCidade(e.getCidade().getDescricao());
+			dto.setCnae(e.getCnae().getDescricao());
+			String dataFormatada = 
+							e.getDataDeCadastroVendedor()
+							.format(formatador);
+			dto.setDataDeCadastroVendedor(dataFormatada);
+			empresasFormatadas.add(dto);
+		}
+		
+		return empresasFormatadas;
 	}
 	
 	private SenioridadeVendedor calcularSenioridade(LocalDateTime dataInicio) {
@@ -131,7 +153,7 @@ public class CarteiraVendedorServiceImpl implements CarteiraVendedorService{
 		List<CarteiraVendedor> resultado = carteiras.stream().sorted(compararScore.reversed()).collect(Collectors.toList());
 		resultado = resultado.subList(0, 3);
 		
-		resultado.forEach(r->ranking.put(r.getVendedor().getNome(), r.getScore()));
+		resultado.forEach(r->ranking.put("("+r.getVendedor().getId()+ ") " + r.getVendedor().getNome(), r.getScore()));
 		
 		return ranking;
 	}
