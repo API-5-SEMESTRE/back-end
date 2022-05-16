@@ -7,6 +7,7 @@ package api.theVelopers.sas.entity;
  */
 import java.util.List;
 
+import api.theVelopers.sas.dto.EmpresaCarteiraDTO;
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.enumeration.SenioridadeVendedor;
 
@@ -15,7 +16,7 @@ public class CarteiraVendedor {
 	
 	private UsuarioDTO vendedor;
 	
-	private List<Empresa> clientes;
+	private List<EmpresaCarteiraDTO> clientes;
 	
 	private Long score;
 	
@@ -31,11 +32,12 @@ public class CarteiraVendedor {
 		this.vendedor = vendedor;
 	}
 
-	public List<Empresa> getClientes() {
+
+	public List<EmpresaCarteiraDTO> getClientes() {
 		return clientes;
 	}
 
-	public void setClientes(List<Empresa> clientes) {
+	public void setClientes(List<EmpresaCarteiraDTO> clientes) {
 		this.clientes = clientes;
 	}
 
