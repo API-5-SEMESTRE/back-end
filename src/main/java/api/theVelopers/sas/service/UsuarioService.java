@@ -13,6 +13,7 @@ public interface UsuarioService{
 	UsuarioDTO salvarComFlush(Usuario usuario);
 	UsuarioDTO atualizar(Long id, Usuario usuario);
 	List<UsuarioDTO> buscarTodos();
+	List<UsuarioDTO> buscarTodosVendedores();
 	List<UsuarioDTO> salvarTodos(Iterable<Usuario> usuarios);
 	List<UsuarioDTO> salvarTodosFlush(Iterable<Usuario> usuarios);
 	void deletar(Long id);

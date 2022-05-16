@@ -5,6 +5,7 @@ import static api.theVelopers.sas.entity.Consumo.MES_REFERENCIA;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -51,7 +52,23 @@ public class ConsumoId implements Serializable{
 	public void setQuantidadeConsumo(Long quantidadeConsumo) {
 		this.quantidadeConsumo = quantidadeConsumo;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(empresa, mesReferencia, quantidadeConsumo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConsumoId other = (ConsumoId) obj;
+		return Objects.equals(empresa, other.empresa) && Objects.equals(mesReferencia, other.mesReferencia)
+				&& Objects.equals(quantidadeConsumo, other.quantidadeConsumo);
+	}
 	
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -26,7 +25,13 @@ import api.theVelopers.sas.repository.CnaeRepository;
 import api.theVelopers.sas.repository.EmpresaRepository;
 import api.theVelopers.sas.service.TransformarDadosService;
 import api.theVelopers.sas.utils.LeitorCSVUtils;
+import api.theVelopers.sas.utils.LocalDateTimeFormatterUtils;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class TransformarDadosServiceImpl implements TransformarDadosService {
 
@@ -115,7 +120,6 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	private Set<Empresa> construirEmpresas(List<String[]> linhas) {
 		Set<Empresa> empresas = new LinkedHashSet<>();
 		final HashMap<Long, Cnae> cnaesMap = construirMapCnaes();
-		//final HashMap<Long, Cidade> cidadesMap = construirMapCidades();
 		
 		for(String[] linha: linhas) {
 			Empresa novaEmpresa = construirEmpresa(linha[0],linha[1],
@@ -156,7 +160,6 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 	
 	private Set<Consumo> construirConsumos(List<String[]> linhas) {
 		Set<Consumo> consumos = new LinkedHashSet<>();
-		//final HashMap<Long, Empresa> empresasMap = construirMapEmpresas();
 		
 		linhas.stream().forEach(linha -> {
 			Consumo consumo = construirConsumo(linha[0], linha[1], linha[2]);
@@ -170,25 +173,15 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 		
 		Consumo consumo = new Consumo();
 		ConsumoId consumoId = new ConsumoId();
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		LocalDateTime mes = LocalDateTime.parse(mesReferencia, formatador);
+		LocalDateTime mes = LocalDateTimeFormatterUtils.padronizarLocalDateTime(mesReferencia);
 		Empresa empresa = empresaRepo.findById(Long.valueOf(cnpj)).get();
+		
 		consumoId.setEmpresa(empresa);
 		consumoId.setMesReferencia(mes);
 		consumoId.setQuantidadeConsumo(Long.valueOf(qtdConsumo));
 		consumo.setConsumoId(consumoId);
 		
 		return consumo;
-	}
-
-	private HashMap<Long, Cidade> construirMapCidades() {
-		HashMap<Long, Cidade> cidadesMap = new HashMap<>();
-
-		final List<Cidade> cidades = cidadeRepo.findAll();
-
-		cidades.stream().forEach(c -> cidadesMap.put(c.getId(), c));
-
-		return cidadesMap;
 	}
 
 	private HashMap<Long, Cnae> construirMapCnaes() {
@@ -199,16 +192,6 @@ public class TransformarDadosServiceImpl implements TransformarDadosService {
 		cnaes.stream().forEach(c -> cnaesMap.put(c.getId(), c));
 
 		return cnaesMap;
-	}
-	
-	private HashMap<Long, Empresa> construirMapEmpresas() {
-		HashMap<Long, Empresa> empresasMap = new HashMap<>();
-		
-		List<Empresa> empresas = empresaRepo.findAll();
-		
-		empresas.stream().forEach(e->empresasMap.put(e.getCnpj(), e));
-		
-		return empresasMap;
 	}
 
 }

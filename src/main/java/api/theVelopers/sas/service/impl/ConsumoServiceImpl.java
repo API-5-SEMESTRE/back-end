@@ -6,10 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import api.theVelopers.sas.dto.ConsumoDTO;
 import api.theVelopers.sas.entity.Consumo;
 import api.theVelopers.sas.repository.ConsumoRepository;
 import api.theVelopers.sas.service.ConsumoService;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class ConsumoServiceImpl implements ConsumoService{
 	
@@ -40,5 +46,14 @@ public class ConsumoServiceImpl implements ConsumoService{
 	public Long procurarSomaConsumoPorVendedor(Long id) {
 		return repo.procurarPorSomaConsumoPorVendedor(id);
 	}
-	
+
+	@Override
+	public List<ConsumoDTO> procurarConsumosPorCnpj(Long cnpj) {
+		return repo.findConsumoMesReferenciaDTOByEmpresaId_Named(cnpj);
+	}
+
+	@Override
+	public List<ConsumoDTO> procurarConsumosPorIdVendedor(Long id) {
+		return repo.findConsumoMesReferenciaDTOByUsuarioId_Named(id);
+	}
 }

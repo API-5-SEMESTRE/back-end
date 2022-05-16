@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import api.theVelopers.sas.entity.Cnae;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.CnaeService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
 @RequestMapping(path = {"/cnae"})
-public class CnaeController {
+public class CnaeController extends TratamentoExcecao{
 	
 	@Autowired
 	private TransformarDadosService transformarDadosService;

@@ -9,9 +9,17 @@ import org.springframework.stereotype.Service;
 
 import api.theVelopers.sas.dto.UsuarioDTO;
 import api.theVelopers.sas.entity.Usuario;
+import api.theVelopers.sas.exception.NegocioException;
 import api.theVelopers.sas.repository.UsuarioRepository;
 import api.theVelopers.sas.service.UsuarioService;
 
+import static api.theVelopers.sas.constant.MensagemErroConstant.NENHUM_RESULTADO;
+
+/**
+ * 
+ * @author jef
+ *
+ */
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -35,6 +43,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public UsuarioDTO procurarPorEmail(String email) {
 		Optional<Usuario> usuario = repo.findUsuarioByEmail(email);
+		
+		if(usuario.isEmpty()) {
+			throw new NegocioException(NENHUM_RESULTADO);
+		}
 
 		return Usuario.paraDTO(usuario.get());
 	}
@@ -50,6 +62,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<UsuarioDTO> buscarTodos() {
 		List<Usuario> usuarios = repo.findAll();
 
+		return usuarios.stream().map(Usuario::paraDTO).collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<UsuarioDTO> buscarTodosVendedores() {
+		List<Usuario> usuarios = repo.findAllVendedor();
+		
 		return usuarios.stream().map(Usuario::paraDTO).collect(Collectors.toList());
 	}
 

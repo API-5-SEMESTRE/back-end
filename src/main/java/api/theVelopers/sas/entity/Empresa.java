@@ -13,6 +13,11 @@ import javax.persistence.Table;
 import api.theVelopers.sas.dto.EmpresaDTO;
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 @Entity
 @Table(name="empresa")
 public class Empresa {

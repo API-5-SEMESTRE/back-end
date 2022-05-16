@@ -3,6 +3,11 @@ package api.theVelopers.sas.enumeration;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 public enum TipoEmpresa {
 	
 	SPC("SPC"),
@@ -23,9 +28,15 @@ public enum TipoEmpresa {
         return tipo;
     }
     
-    public static Optional<TipoEmpresa> get(String url) {
+    /**
+   	*
+   	* @param String descricao
+   	* @return TipoUsuario retorna um Optional do TipoUsuario encontrado
+   	* a partir da descricao
+   	*/
+    public static Optional<TipoEmpresa> get(String descricao) {
         return Arrays.stream(TipoEmpresa.values())
-            .filter(tipo -> tipo.tipo.equals(url))
+            .filter(tipo -> tipo.tipo.equals(descricao))
             .findFirst();
     }
 }

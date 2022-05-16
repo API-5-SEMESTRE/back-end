@@ -1,5 +1,8 @@
 package api.theVelopers.sas.entity;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +22,7 @@ public class Usuario {
 	public static final String SENHA = "usu_senha";
 	public static final String EMAIL = "usu_email";
 	public static final String TIPO_ACESSO = "usu_tipo_acesso";
+	public static final String DT_CRIACAO = "usu_data_criacao";
 	
 	@Id
 	@GeneratedValue(generator = "usuario_sequence")
@@ -42,6 +46,9 @@ public class Usuario {
 	
 	@Column(name=TIPO_ACESSO)
 	private TipoUsuario tipoAcesso;
+	
+	@Column(name=DT_CRIACAO)
+	private LocalDateTime dataCriacao;
 	
 	public Usuario() {}
 
@@ -85,6 +92,14 @@ public class Usuario {
 		this.tipoAcesso = tipoAcesso;
 	}
 	
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
 	public static UsuarioDTO paraDTO(Usuario usuario) {
 		UsuarioDTO dto = new UsuarioDTO();
 		
@@ -95,4 +110,23 @@ public class Usuario {
 		
 		return dto;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id);
+	}
+	
+	
 }

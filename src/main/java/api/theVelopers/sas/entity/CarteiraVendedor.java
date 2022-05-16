@@ -1,23 +1,33 @@
 package api.theVelopers.sas.entity;
 
+/**
+ * 
+ * @author jef
+ *
+ */
 import java.util.List;
+
+import api.theVelopers.sas.dto.UsuarioDTO;
+import api.theVelopers.sas.enumeration.SenioridadeVendedor;
 
 
 public class CarteiraVendedor {
 	
-	private Usuario vendedor;
+	private UsuarioDTO vendedor;
 	
 	private List<Empresa> clientes;
 	
 	private Long score;
 	
+	private SenioridadeVendedor senioridade;
+	
 	public CarteiraVendedor() {}
 
-	public Usuario getVendedor() {
+	public UsuarioDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(Usuario vendedor) {
+	public void setVendedor(UsuarioDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 
@@ -36,4 +46,14 @@ public class CarteiraVendedor {
 	public void setScore(Long score) {
 		this.score = score;
 	}
+
+	public SenioridadeVendedor getSenioridade() {
+		return senioridade;
+	}
+
+	public void setSenioridade(SenioridadeVendedor senioridade) {
+		this.senioridade = senioridade;
+	}
+	
+	
 }	

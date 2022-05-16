@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import api.theVelopers.sas.dto.ConsumoDTO;
 import api.theVelopers.sas.entity.Consumo;
+import api.theVelopers.sas.exception.TratamentoExcecao;
 import api.theVelopers.sas.service.ConsumoService;
 import api.theVelopers.sas.service.TransformarDadosService;
 
 @RestController
 @RequestMapping(path = {"/consumo"})
-public class ConsumoController {
+public class ConsumoController extends TratamentoExcecao{
 
 	@Autowired
 	private TransformarDadosService transformarDadosService;
@@ -61,5 +63,18 @@ public class ConsumoController {
 		return new ResponseEntity<>(soma, OK);
 	}
 	
+	@GetMapping("/lista-consumo-empresa/{cnpj}")
+	public ResponseEntity<List<ConsumoDTO>> pesquisarConsumosPorCnpj(@PathVariable("cnpj")Long cnpj) {
+		final List<ConsumoDTO> consumos = consumoService.procurarConsumosPorCnpj(cnpj);
+		
+		return new ResponseEntity<>(consumos, OK);
+	}
+	
+	@GetMapping("/lista-consumo-vendedor/{id}")
+	public ResponseEntity<List<ConsumoDTO>> pesquisarConsumosPorIdVendedor(@PathVariable("id")Long id) {
+		final List<ConsumoDTO> consumos = consumoService.procurarConsumosPorIdVendedor(id);
+		
+		return new ResponseEntity<>(consumos, OK);
+	}
 	
 }

@@ -1,15 +1,15 @@
 package api.theVelopers.sas.converter;
 
-import static api.theVelopers.sas.enumeration.TipoEmpresa.*;
-
+import static api.theVelopers.sas.enumeration.TipoEmpresa.CONCORRENTE;
+import static api.theVelopers.sas.enumeration.TipoEmpresa.LIVRE;
+import static api.theVelopers.sas.enumeration.TipoEmpresa.SPC;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-
-import org.springframework.data.convert.ReadingConverter;
-import org.springframework.data.convert.WritingConverter;
-
 import api.theVelopers.sas.enumeration.TipoEmpresa;
 
+/**
+ * @author Jeferson 
+ */
 @Converter(autoApply = true)
 public class TipoEmpresaConverter implements AttributeConverter<TipoEmpresa, String>{
 
