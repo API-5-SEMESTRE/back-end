@@ -58,7 +58,7 @@ class UsuarioServiceImplTest {
 	void rankingMelhoresVendedoresDeveFuncionar() {
 		Map<String, Long> ranking = cartServ.procurarMelhoresVendedores();
 		List<String> vendedores = new ArrayList<>(ranking.keySet());
-		assertTrue(StringUtils.equals(vendedores.get(0), "Devanir"));
+		assertTrue(StringUtils.equals(vendedores.get(0), "(71) Devanir"));
 	}
 	
 	@Test

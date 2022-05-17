@@ -56,6 +56,7 @@ class TransformarDadosServiceImplTest {
 	}
 	
 	@Test
+	@Rollback
 	void carregarDadosCnaeDeveFuncionar() {
 
 		StringBuilder nomeCaminho = new StringBuilder();
@@ -81,6 +82,7 @@ class TransformarDadosServiceImplTest {
 	}
 	
 	@Test
+	@Rollback
 	void carregarDadosEmpresaDeveFuncionar() {
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
@@ -105,6 +107,7 @@ class TransformarDadosServiceImplTest {
 	}
 	
 	@Test
+	@Rollback
 	void carregarDadosConsumoDeveFuncionar() {
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
@@ -125,7 +128,7 @@ class TransformarDadosServiceImplTest {
 
 		Set<Consumo> cnaes= service.transformarDadosConsumo(arquivo);
 		
-		assertTrue(cnaes.size() == 5);
+		assertTrue(cnaes.size() == 2);
 	}
 
 }
