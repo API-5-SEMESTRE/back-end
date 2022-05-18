@@ -61,7 +61,7 @@ def analyse_consumo(consumo_separated):
     final_score = (sum(score) / size) * 20 + (sum(consumo_separated) / size) * multiplier
     if final_score > 1000:
         final_score = 1000
-    return int(final_score)
+    return [int(final_score), int((sum(score) / size) * 20)]
 
 
 db202203301935_low = '(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.sa-saopaulo-1.oraclecloud.com))(connect_data=(service_name=g5a8d282e2d63db_db202203301935_low.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.sa-saopaulo-1.oraclecloud.com, OU=Oracle ADB SAOPAULO, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))'
@@ -79,13 +79,13 @@ cursor = connection.cursor()
 #     conc.append(i)
 
 #1500 empresas do spc e conc, cada
-c = cursor.execute("SELECT * FROM consumo c INNER JOIN empresa e ON e.emp_cnpj = c.emp_cnpj WHERE e.emp_origem = 'SPC' ORDER BY c.emp_cnpj, c.cons_mesref")
+c = cursor.execute("SELECT * FROM consumo c INNER JOIN empresa e ON e.emp_cnpj = c.emp_cnpj ORDER BY c.emp_cnpj, c.cons_mesref")
 spc = []
 for i in c:
     spc.append(i)
 #print(spc)
 
-
+plot = []
 consumo = []
 score = []
 for data in spc:
@@ -95,7 +95,7 @@ for data in spc:
         print(f"TOTAL DO CLIENTE {data[1]} - {sum(consumo)}")
         sc = analyse_consumo(consumo)
         print(f"SCORE: {sc}\n-------------------")
-        if sc > 820 or sc < 230:
+        if sc[0] > 820 or sc[0] < 230:
             score.append({"consumos": consumo, "score": sc})
         else:
             if randint(1, 20) > 11:
@@ -111,18 +111,28 @@ for data in spc:
             print(f"TOTAL DO CLIENTE {data[1]} - {sum(consumo)}")
             sc = analyse_consumo(consumo)
             print(f"SCORE: {sc}\n-------------------")
-            if sc > 980 or sc < 220:
-                if randint(1, 20) > 8:
-                    score.append({"consumos": consumo, "score": sc})
+            if sc[0] > 980 or sc[0] < 220:
+                if randint(1, 20) > 0:
+                    score.append({"total_consumo": sum(consumo), "media_consumo": int(sum(consumo)/len(consumo)), "total_score": sc[0], "media_score": sc[1], "consumos": consumo, "cnpj": data[1], "origem": data[6]})
             else:
-                if randint(1, 20) > 18:
-                    score.append({"consumos": consumo, "score": sc})
+                if randint(1, 20) > 0:
+                    score.append({"total_consumo": sum(consumo), "media_consumo": int(sum(consumo)/len(consumo)), "total_score": sc[0], "media_score": sc[1], "consumos": consumo, "cnpj": data[1], "origem": data[6]})
             consumo = []
 
 print(len(score))
 for i in score:
     pass
     #print(i)
+
+
+# c = cursor.execute("SELECT * FROM cidade")
+# for i in c:
+#     print(i)
+
+
+df = pandas.DataFrame(score)
+df.to_csv("scores-sample.csv", index=False, columns=["origem", "cnpj", "media_consumo", "total_consumo", "media_score", "total_score"], sep=";")
+
 
 
 
