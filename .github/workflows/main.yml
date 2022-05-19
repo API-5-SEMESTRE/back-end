@@ -26,9 +26,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2  
       
       - name: Step 4 - change to prod
-        run: |
-              cd src/main/resources
-              sed -i 's/dev/prod/' application.yml
+        run: sed -i 's/dev/prod/' src/main/resources/application.yml
       
       - name: Step 5 - clean project
         run: mvn -B clean --file pom.xml
