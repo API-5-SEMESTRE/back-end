@@ -5,7 +5,7 @@ on:
         branches: [ main ]
 
 jobs:
-  build_and_test:
+  clean_build_deploy:
   
     runs-on: ubuntu-latest
 
@@ -18,12 +18,13 @@ jobs:
         with:
           java-version: 11
       
-      - name: Step 3- cache Maven packages
-        uses: actions/cache@v1
+      - name: Step 3 - cache local Maven repository
+        uses: actions/cache@v3
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2  
+            path: ~/.m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+            restore-keys: |
+                        ${{ runner.os }}-maven-  
       
       - name: Step 4 - change to prod
         run: sed -i 's/dev/prod/' src/main/resources/application.yml
