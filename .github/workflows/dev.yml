@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 # nome do workflow
 name: CI 
 
 # aqui é um trigger, se acontecer um push na branch dev os 'jobs' são executados
+=======
+name: CI
+
+>>>>>>> 0c0a12f1257f0323b63bb51519dbbd02e9bc6a45
 on:
     push:
         branches: [ dev ]
