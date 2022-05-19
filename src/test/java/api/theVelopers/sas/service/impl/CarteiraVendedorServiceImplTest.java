@@ -1,5 +1,7 @@
 package api.theVelopers.sas.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,6 @@ import api.theVelopers.sas.enumeration.SenioridadeVendedor;
 import api.theVelopers.sas.enumeration.TipoUsuario;
 import api.theVelopers.sas.service.CarteiraVendedorService;
 import api.theVelopers.sas.service.UsuarioService;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional

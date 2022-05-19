@@ -63,6 +63,9 @@ public abstract class LeitorCSVUtils {
 		
 		List<String[]> linhas = processadorLinha.getRows();
 		
+		if(!StringUtils.join(linhas.get(0)).contains("\"")) {
+			return linhas;
+		}
 		
 		List<String[]> linhasFormatadas = new ArrayList<>();
 		
@@ -97,5 +100,5 @@ public abstract class LeitorCSVUtils {
 		}
 		
 		return linhasFormatadas;
-	}
+	}	
 }

@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +38,7 @@ class TransformarDadosServiceImplTest {
 		//teste
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
-		nomeCaminho.append("base_cidade");
+		nomeCaminho.append("base_cidade_teste");
 		nomeCaminho.append(".csv");
 
 		Path caminho = Paths.get(nomeCaminho.toString());
@@ -52,7 +55,7 @@ class TransformarDadosServiceImplTest {
 		
 		Set<Cidade> cidades= service.transformarDadosCidade(arquivo);
 		
-		assertTrue(cidades.size() == 11155);
+		assertTrue(cidades.size() == 5);
 	}
 	
 	@Test
@@ -61,7 +64,7 @@ class TransformarDadosServiceImplTest {
 
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
-		nomeCaminho.append("base_cnae");
+		nomeCaminho.append("base_cnae_teste");
 		nomeCaminho.append(".csv");
 
 		Path caminho = Paths.get(nomeCaminho.toString());
@@ -78,7 +81,35 @@ class TransformarDadosServiceImplTest {
 
 		Set<Cnae> cnaes= service.transformarDadosCnae(arquivo);
 		
-		assertTrue(cnaes.size() == 1362);
+		assertTrue(cnaes.size() == 5);
+	}
+	
+	@Test
+	@Rollback
+	void dadosCnaeDevemEstarCorretos() {
+
+		StringBuilder nomeCaminho = new StringBuilder();
+		nomeCaminho.append("./uploads/");
+		nomeCaminho.append("base_cnae_teste");
+		nomeCaminho.append(".csv");
+
+		Path caminho = Paths.get(nomeCaminho.toString());
+
+		byte[] conteudo = null;
+
+		try {
+			conteudo = Files.readAllBytes(caminho);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		MultipartFile arquivo = new MockMultipartFile("base_cnae.csv", conteudo);
+
+		Set<Cnae> cnaes= service.transformarDadosCnae(arquivo);
+		
+		List<Cnae> cnaesL = new ArrayList<>(cnaes);
+		
+		assertTrue(StringUtils.equals(cnaesL.get(0).getDescricao(), "FABRICAÇÃO DE APARELHOS E EQUIPAMENTOS DE MEDIDA, TESTE E CONTROLE"));
 	}
 	
 	@Test
@@ -86,7 +117,7 @@ class TransformarDadosServiceImplTest {
 	void carregarDadosEmpresaDeveFuncionar() {
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
-		nomeCaminho.append("base_empresas");
+		nomeCaminho.append("base_empresas_teste");
 		nomeCaminho.append(".csv");
 
 		Path caminho = Paths.get(nomeCaminho.toString());
@@ -103,7 +134,7 @@ class TransformarDadosServiceImplTest {
 
 		Set<Empresa> cnaes= service.transformarDadosEmpresa(arquivo);
 		
-		assertTrue(cnaes.size() == 3300);
+		assertTrue(cnaes.size() == 5);
 	}
 	
 	@Test
@@ -111,7 +142,7 @@ class TransformarDadosServiceImplTest {
 	void carregarDadosConsumoDeveFuncionar() {
 		StringBuilder nomeCaminho = new StringBuilder();
 		nomeCaminho.append("./uploads/");
-		nomeCaminho.append("base_consumo2");
+		nomeCaminho.append("base_consumo_teste");
 		nomeCaminho.append(".csv");
 
 		Path caminho = Paths.get(nomeCaminho.toString());
@@ -128,7 +159,7 @@ class TransformarDadosServiceImplTest {
 
 		Set<Consumo> cnaes= service.transformarDadosConsumo(arquivo);
 		
-		assertTrue(cnaes.size() == 2);
+		assertTrue(cnaes.size() == 20);
 	}
 
 }
