@@ -19,7 +19,7 @@ import java.util.*;
 
 @SpringBootTest
 @Transactional
-public class IntegracaoImplTest {
+public class IntegracaoTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
