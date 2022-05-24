@@ -36,7 +36,7 @@ jobs:
            ./scripts/InstallChrome.sh
 
       - name: Grant execute permission for maven
-        run: chmod +x mvn
+        run: chmod +x maven
           
       - name: Step 4 - build and test
         # aqui é onde roda o comando package do maven, ele testa e faz o pacote para deploy
