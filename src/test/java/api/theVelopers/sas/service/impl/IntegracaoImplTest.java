@@ -12,9 +12,13 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+@SpringBootTest
+@Transactional
 public class IntegracaoImplTest {
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -30,7 +34,7 @@ public class IntegracaoImplTest {
     driver.quit();
   }
   @Test
-  public void teste2() throws InterruptedException {
+  public void testeIntegracao() throws InterruptedException {
     driver.get("https://score-analysis-system-front.herokuapp.com/#/");
     driver.manage().window().setSize(new Dimension(1360, 768));
     {
