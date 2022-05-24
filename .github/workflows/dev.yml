@@ -28,14 +28,19 @@ jobs:
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2  
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Step 4 - Install Google Chrome # Using shell script to install Google Chrome
+        run: |
+          chmod +x ./scripts/InstallChrome.sh
+           ./scripts/InstallChrome.sh
           
-      - name: Step 4 - build and test
+      - name: Step 5 - build and test
         # aqui é onde roda o comando package do maven, ele testa e faz o pacote para deploy
         run: mvn -B package --file pom.xml
     
       
       # Runs a set of commands using the runners shell
-      - name: Step 5 - list current dir
+      - name: Step 6 - list current dir
         # aqui é onde ele lista o diretório da máquina
         run: ls -a
