@@ -29,22 +29,27 @@ jobs:
       - name: Step 4 - change to prod
         run: sed -i 's/dev/prod/' src/main/resources/application.yml
       
-      - name: Step 5 - clean project
-        run: mvn -B clean --file pom.xml
+      - name: Step 5 - install google chrome
+        run:|
+          chmod +x ./scripts/InstallChrome.sh
+           ./scripts/InstallChrome.sh
+        
+      - name: Step 6 - integration test
+        run: mvn -Dtest="theVelopers.sas.integration.**" test|
       
-      - name: Step 6 - build and test
-        run: mvn -B package --file pom.xml
+      - name: Step 7 - clean and build
+        run: mvn -B -DskipTests clean package
     
-      - name: Step 7 - move jar to staging dir
+      - name: Step 8 - move jar to staging dir
         run: mkdir staging && cp target/*.jar staging
       
-      - name: Step 8 - set jar to download
+      - name: Step 9 - set jar to download
         uses: actions/upload-artifact@v2
         with:
           name: sas-artifact
           path: staging
         
-      - name: Step 9 - deploy heroku
+      - name: Step 10 - deploy heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
