@@ -8,7 +8,10 @@ spring:
   config:
     activate:
       on-profile: dev
-
+  
+  liquibase:
+    change-log: classpath:db/changelog/changelog-main.xml
+    
   datasource:
     url: jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key
     driverClassName: oracle.jdbc.OracleDriver
@@ -28,7 +31,10 @@ spring:
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: prod  
+        
+  liquibase:
+    change-log: classpath:db/changelog/changelog-main.xml
 
   datasource:
     url: jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key

@@ -1,10 +1,10 @@
-package api.theVelopers.sas.service.impl;
+package api.theVelopers.sas.integration;
 
-import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class IntegracaoTest
