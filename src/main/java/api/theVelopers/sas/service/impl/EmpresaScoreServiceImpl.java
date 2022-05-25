@@ -59,4 +59,12 @@ public class EmpresaScoreServiceImpl implements EmpresaScoreService{
 		return score.get();
 	}
 
+	@Override
+	public Page<EmpresaScore> procurarPorFiltroCompleto(String regiao, String origem, String cnae, String estado,
+			int pagina, int tamanho, int sort) {
+		PageRequest request = montarPagina(pagina, tamanho, sort);
+		Page<EmpresaScore> scores = repo.procurarPorFiltroCompleto(regiao, origem, cnae, estado, request);
+		return scores;
+	}
+
 }

@@ -16,6 +16,8 @@ public class EmpresaScore {
 	public static final String TOTAL_CONSUMO="total_consumo";
 	public static final String MEDIA_SCORE="media_score";
 	public static final String TOTAL_SCORE="total_score";
+	public static final String CNAE="cnae";
+	public static final String ESTADO="estado";
 	
 	@Id
 	@Column(name=ID)
@@ -33,6 +35,10 @@ public class EmpresaScore {
 	private Long mediaScore;
 	@Column(name=TOTAL_SCORE)
 	private Long totalScore;
+	@Column(name=CNAE)
+	private String cnae;
+	@Column(name=ESTADO)
+	private String estado;
 	
 	public Long getCnpj() {
 		return cnpj;
@@ -75,6 +81,18 @@ public class EmpresaScore {
 	}
 	public void setTotalScore(Long totalScore) {
 		this.totalScore = totalScore;
+	}
+	public String getCnae() {
+		return cnae;
+	}
+	public void setCnae(String cnae) {
+		this.cnae = cnae;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }
