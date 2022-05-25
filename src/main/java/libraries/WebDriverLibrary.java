@@ -13,10 +13,6 @@ public class WebDriverLibrary {
 	
 	@Bean
 	public WebDriver getChromeDriver() {
-		
-		ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger("org.apache.http");
-	    root.setLevel(ch.qos.logback.classic.Level.INFO);
-		
 		WebDriverManager.chromedriver().setup();
 		
 		ChromeOptions options = new ChromeOptions();
