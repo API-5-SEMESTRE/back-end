@@ -35,7 +35,7 @@ jobs:
            ./scripts/InstallChrome.sh
         
       - name: Step 6 - integration test
-        run: mvn -Dtest="theVelopers.sas.integration.**" test|
+        run: mvn -Dtest="theVelopers.sas.integration.**" test
       
       - name: Step 7 - clean and build
         run: mvn -B -DskipTests clean package
