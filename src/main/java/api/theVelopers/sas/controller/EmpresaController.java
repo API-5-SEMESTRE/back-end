@@ -94,4 +94,16 @@ public class EmpresaController extends TratamentoExcecao{
 	public EmpresaScore pesquisarScorePorCnpj(@PathVariable("cnpj")Long cnpj) {
 		return scoreService.procurarPorCnpj(cnpj);
 	}
+	
+	@GetMapping("/pesquisar-score-por-filtro/{regiao}/{origem}/{cnae}/{estado}/{pagina}/{tamanho}/{sort}")
+	@ResponseStatus(OK)
+	public Page<EmpresaScore> pesquisarScorePorOrigem(@PathVariable(name="regiao", required=true)String regiao,
+														@PathVariable(name="origem", required=false)String origem,
+														@PathVariable(name="cnae", required=false)String cnae,
+														@PathVariable(name="estado", required=false)String estado,
+																		@PathVariable("pagina")int pagina,
+																		@PathVariable("tamanho")int tamanho,
+																		@PathVariable("sort")int sort) {
+		return scoreService.procurarPorFiltroCompleto(regiao, origem, cnae, estado, pagina, tamanho, sort);
+	}
 }
