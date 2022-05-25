@@ -30,7 +30,7 @@ jobs:
         run: sed -i 's/dev/prod/' src/main/resources/application.yml
       
       - name: Step 5 - install google chrome
-        run:|
+        run: |
           chmod +x ./scripts/InstallChrome.sh
            ./scripts/InstallChrome.sh
         
