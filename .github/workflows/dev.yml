@@ -9,6 +9,11 @@ jobs:
   build_and_test:
   #aqui é em que máquina os passos devem ser executados
     runs-on: ubuntu-latest
+
+    # Setando o ambiente
+    environment:
+      name: dev
+
     # passos
     steps:
         # nome do passo

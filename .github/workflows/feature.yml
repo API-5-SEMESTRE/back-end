@@ -1,4 +1,4 @@
-name: CI 
+name: CI Feature
 
 on:
     push:
@@ -9,6 +9,11 @@ jobs:
   build_and_test:
   #aqui é em que máquina os passos devem ser executados
     runs-on: ubuntu-latest
+
+    # Setando o ambiente
+    environment:
+      name: feature
+
     # passos
     steps:
         # nome do passo
