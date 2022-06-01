@@ -1,0 +1,39 @@
+name: CI hotfix
+
+on:
+    push:
+        branches: [ hotfix/* ]
+
+jobs:
+
+  build_and_test:
+  #aqui é em que máquina os passos devem ser executados
+    runs-on: ubuntu-latest
+
+    # Setando o ambiente
+    environment:
+      name: dev
+
+    # passos
+    steps:
+        # nome do passo
+      - name: Step 1 - checkout
+        # uso de actions do github
+        uses: actions/checkout@v2
+
+      - name: Step 2 - set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+            # informando o actions do github qual o jdk
+          java-version: 11
+      
+      - name: Step 3- cache Maven packages
+        uses: actions/cache@v1
+        # informando o actions do github para guardar os packages no m2 que é o repo do maven na máquina
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Step 4 - unit/integration test # Using shell script to install Google Chrome
+        run: mvn test
