@@ -32,4 +32,10 @@ jobs:
 
       - name: Step 4 - unit/integration test # Using shell script to install Google Chrome
         run: mvn test
-   
+
+      - name: Step 7 - deploy heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "score-analysis-system-back"
+          heroku_email: "score.analysis.sytem@gmail.com"
