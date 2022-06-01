@@ -37,16 +37,15 @@ jobs:
       - name: Step 6 - clean and build
         run: mvn -B -DskipTests clean package
     
-      - name: Step 7 - move jar to staging dir
-        run: mkdir staging && cp target/*.jar staging
-      
-      - name: Step 8 - set jar to download
-        uses: actions/upload-artifact@v2
+      - name: Step 7 - build and push docker image
+        uses: mr-smithers-excellent/docker-build-push@v4
         with:
-          name: sas-artifact
-          path: staging
+            image: jef771/sas-app
+            registry: docker.io
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
         
-      - name: Step 9 - deploy heroku
+      - name: Step 8 - deploy heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
