@@ -29,15 +29,10 @@ jobs:
       - name: Step 4 - change to prod
         run: sed -i 's/dev/prod/' src/main/resources/application.yml
       
-      - name: Step 5 - install google chrome
-        run: |
-          chmod +x ./scripts/InstallChrome.sh
-           ./scripts/InstallChrome.sh
-      
-      - name: Step 6 - clean and build
+      - name: Step 5 - clean and build
         run: mvn -B -DskipTests clean package
     
-      - name: Step 7 - build and push docker image
+      - name: Step 6 - build and push docker image
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
             image: jef771/sas-app
@@ -45,7 +40,7 @@ jobs:
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
         
-      - name: Step 8 - deploy heroku
+      - name: Step 7 - deploy heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}

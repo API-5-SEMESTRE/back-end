@@ -30,6 +30,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Step 5 - unit test # Using shell script to install Google Chrome
+      - name: Step 5 - unit/integration test # Using shell script to install Google Chrome
         run: mvn test
         
