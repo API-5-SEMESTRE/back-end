@@ -8,9 +8,9 @@ spring:
   config:
     activate:
       on-profile: dev
-  
-  liquibase:
-    change-log: classpath:db/changelog/changelog-main.xml
+      
+  flyway:
+    baseline-on-migrate: true
     
   datasource:
     url: jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key
@@ -31,10 +31,10 @@ spring:
 spring:
   config:
     activate:
-      on-profile: prod  
-        
-  liquibase:
-    change-log: classpath:db/changelog/changelog-main.xml
+      on-profile: prod
+      
+  flyway:
+    baseline-on-migrate: true  
 
   datasource:
     url: jdbc:oracle:thin:@DB202203301935_medium?TNS_ADMIN=./key
