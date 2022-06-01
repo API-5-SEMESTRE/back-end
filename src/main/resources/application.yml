@@ -1,4 +1,11 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+---
+
+spring:
   profiles:
     active: dev
 
